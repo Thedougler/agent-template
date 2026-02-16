@@ -99,6 +99,8 @@ User Intent/Issue → SPEC → Tasks → Implementation → Tests → Review →
 
 ## 🚀 Getting Started
 
+**→ See [Quick Start Guide](docs/QUICK_START.md) for a 5-minute introduction**
+
 ### Using This Template
 
 1. **Click "Use this template"** to create your repository
@@ -217,7 +219,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 ## 📄 License
 
-This template is available for use under your chosen license.
+This template is available under the MIT License. See [LICENSE](LICENSE) for details.
 
 ## 🙋 Support
 

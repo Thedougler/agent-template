@@ -1,0 +1,23 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Markdown files
+*.md text
+
+# JSON files
+*.json text
+
+# YAML files
+*.yml text
+*.yaml text
+
+# Python files
+*.py text
+
+# JavaScript files
+*.js text
+*.ts text
+
+# Documentation
+*.txt text
+LICENSE text
