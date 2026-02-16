@@ -1,0 +1,32 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/mcp.json",
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"],
+      "description": "Provides access to latest documentation for technologies and frameworks. Always query this for up-to-date API docs, best practices, and current versions.",
+      "enabled": true,
+      "priority": 1
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "description": "Local filesystem access for reading and writing files in the repository",
+      "enabled": true
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "description": "GitHub API integration for issues, PRs, and repository management",
+      "enabled": true,
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  },
+  "settings": {
+    "autoConnect": true,
+    "timeout": 30000,
+    "retryAttempts": 3
+  }
+}
