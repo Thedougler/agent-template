@@ -305,7 +305,7 @@ server.setRequestHandler("tools/list", async () => ({
 // Handle tool calls
 server.setRequestHandler("tools/call", async (request) => {
   const { name, arguments: args } = request.params;
-  
+
   if (name === "my_tool") {
     // Implement tool logic
     return { content: [{ type: "text", text: "Result" }] };
@@ -473,7 +473,7 @@ async function query(key) {
   if (cache.has(key)) {
     return cache.get(key);
   }
-  
+
   const result = await expensiveQuery(key);
   cache.set(key, result);
   return result;
