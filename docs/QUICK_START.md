@@ -74,13 +74,40 @@ agent-template/
 
 ## 🤖 The Five Agents
 
-| Agent | Purpose | When to Use |
-|-------|---------|-------------|
-| **plan-agent** | Create tasks from specs | After writing a spec |
-| **implement-agent** | Write code | For each task |
-| **test-agent** | Create/run tests | After implementation |
-| **review-agent** | Review code | Before submitting PR |
-| **refactor-agent** | Improve code | When code needs cleanup |
+| Agent | Purpose | When to Use | Special Features |
+|-------|---------|-------------|------------------|
+| **plan-agent** | Create tasks from specs | After writing a spec | Uses context7 for latest patterns |
+| **implement-agent** | Write code | For each task | Queries latest docs via context7 |
+| **test-agent** | Create/run tests | After implementation | Optimizes test suite runtime |
+| **review-agent** | Review code | Before submitting PR | Checks latest security standards |
+| **refactor-agent** | Improve code | When code needs cleanup | Applies modern patterns from context7 |
+
+**All agents continuously self-improve and optimize for:**
+- 🚀 Maximum productivity and release frequency
+- 💡 Minimum token usage while maintaining quality
+- 📚 Always using latest documentation via context7 MCP server
+
+## 🎓 Advanced Features
+
+### Agent Skills
+
+Copilot **automatically discovers and applies skills** from `.github/skills/`:
+
+- **spec-driven-development** - Teaches SPEC-driven methodology
+- Create custom skills to teach Copilot your patterns
+- Skills load automatically based on context
+
+[Learn more about Skills →](SKILLS.md)
+
+### MCP Servers
+
+Extend Copilot with external tools (configured in `.vscode/mcp.json`):
+
+- **context7** - Latest documentation for all technologies
+- **filesystem** - Local file access
+- **github** - GitHub API integration
+
+[Learn more about MCP Servers →](MCP_SERVERS.md)
 
 ## 💡 Common Commands
 

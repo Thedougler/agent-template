@@ -14,37 +14,56 @@ This template enables a complete **SPEC-driven development workflow** where:
 
 ## 🤖 Custom Agents
 
-Five specialized agents work together through the development lifecycle:
+Five specialized agents work together through the development lifecycle, **continuously self-improving** and **optimizing for efficiency**:
 
 ### 1. Plan Agent (`plan-agent`)
 - Analyzes specs and user intent
 - Breaks down requirements into actionable tasks
 - Creates implementation plans with dependencies
 - Identifies risks and estimates effort
+- **Optimizes for rapid iteration and parallel execution**
+- **Uses context7 MCP server for latest best practices**
 
 ### 2. Implement Agent (`implement-agent`)
 - Writes code based on specs and tasks
 - Follows existing patterns and conventions
 - Creates/updates tests for new functionality
 - Ensures spec compliance
+- **Maximizes productivity with efficient code**
+- **Queries latest documentation via context7**
 
 ### 3. Test Agent (`test-agent`)
 - Creates comprehensive test suites
 - Validates implementation against specs
 - Reports coverage and quality metrics
 - Identifies edge cases and missing tests
+- **Optimizes test suite runtime**
+- **Uses current testing frameworks via context7**
 
 ### 4. Review Agent (`review-agent`)
 - Reviews code changes against specs
 - Evaluates code quality and maintainability
 - Checks for security vulnerabilities
 - Validates test coverage and documentation
+- **Provides efficient, prioritized feedback**
+- **Verifies against latest security standards via context7**
 
 ### 5. Refactor Agent (`refactor-agent`)
 - Improves code quality while preserving functionality
 - Reduces duplication and complexity
 - Optimizes performance where needed
 - Maintains backward compatibility
+- **Continuously improves codebase efficiency**
+- **Applies modern patterns from context7**
+
+### Agent Efficiency Directives
+
+All agents are configured to:
+- ✅ **Maximize output and release frequency**
+- ✅ **Minimize token usage** while maintaining quality
+- ✅ **Continuously self-improve** their operations
+- ✅ **Always use latest documentation** via context7 MCP server
+- ✅ **Optimize for productivity** and team velocity
 
 ## 📋 SPEC-Driven Development Workflow
 
@@ -142,11 +161,16 @@ User Intent/Issue → SPEC → Tasks → Implementation → Tests → Review →
 .
 ├── .github/
 │   ├── agents/              # Custom agent configurations
-│   │   ├── plan-agent.json
-│   │   ├── implement-agent.json
-│   │   ├── test-agent.json
-│   │   ├── review-agent.json
-│   │   └── refactor-agent.json
+│   │   ├── plan-agent.agent.md       # Markdown format (latest)
+│   │   ├── implement-agent.agent.md
+│   │   ├── test-agent.agent.md
+│   │   ├── review-agent.agent.md
+│   │   ├── refactor-agent.agent.md
+│   │   └── *.json                    # JSON format (legacy)
+│   ├── skills/              # Agent Skills for auto-discovery
+│   │   ├── SKILL_TEMPLATE.md
+│   │   └── spec-driven-development/
+│   │       └── SKILL.md
 │   ├── workflows/           # CI/CD pipelines
 │   │   ├── ci.yml
 │   │   ├── spec-validation.yml
@@ -156,15 +180,91 @@ User Intent/Issue → SPEC → Tasks → Implementation → Tests → Review →
 │   │   ├── bug-report.yml
 │   │   └── task.yml
 │   └── PULL_REQUEST_TEMPLATE.md
+├── .vscode/
+│   └── mcp.json             # MCP server configuration
 ├── specs/                   # Specification documents
 │   ├── README.md
 │   └── SPEC_TEMPLATE.md
 ├── tasks/                   # Task definitions
 │   ├── README.md
 │   └── TASK_TEMPLATE.md
+├── docs/                    # Documentation
+│   ├── README.md            # Documentation index
+│   ├── QUICK_START.md       # 5-minute guide
+│   ├── AGENT_WORKFLOW.md    # Agent details
+│   ├── SKILLS.md            # Agent Skills guide
+│   ├── MCP_SERVERS.md       # MCP servers guide
+│   └── ARCHITECTURE.md      # System architecture
 ├── CONTRIBUTING.md          # Contribution guidelines
 └── README.md               # This file
 ```
+
+## 🎓 Advanced Features
+
+### Agent Skills
+
+**Automatic capability enhancement** - Copilot automatically discovers and applies skills based on context:
+
+- **Location**: `.github/skills/`
+- **Format**: `SKILL.md` with YAML frontmatter
+- **Discovery**: Automatic based on task context
+- **Usage**: Applied transparently when relevant
+
+Example: The `spec-driven-development` skill teaches Copilot SPEC-driven methodology automatically.
+
+See [SKILLS.md](docs/SKILLS.md) for complete guide.
+
+### MCP Servers
+
+**Extend Copilot with external tools and data**:
+
+#### Pre-configured Servers
+
+1. **context7** - Latest documentation for technologies
+   - Always provides current API docs
+   - Returns up-to-date best practices
+   - Ensures agents use modern patterns
+
+2. **filesystem** - Local file access
+   - Read/write repository files
+   - Search codebase
+   - Monitor changes
+
+3. **github** - GitHub API integration
+   - Create/manage issues and PRs
+   - Access workflows
+   - Search repositories
+
+#### Configuration
+
+Located in `.vscode/mcp.json` - customize or add servers as needed.
+
+See [MCP_SERVERS.md](docs/MCP_SERVERS.md) for complete guide.
+
+### Custom Agent Format
+
+Agents now use markdown format with YAML frontmatter:
+
+```markdown
+---
+name: agent-name
+description: What the agent does
+tools: [filesystem, code_search, mcp]
+infer: true
+metadata:
+  mcp-servers: [context7]
+---
+
+# Agent Instructions
+
+Detailed guidance for the agent...
+```
+
+Benefits:
+- More expressive instructions
+- Integrated MCP server configuration
+- Efficiency and self-improvement directives
+- Backward compatible with JSON format
 
 ## 🔄 Continuous Integration
 
@@ -180,6 +280,11 @@ Automated workflows validate:
 
 - [Specs README](specs/README.md) - How to create and manage specs
 - [Tasks README](tasks/README.md) - How to create and track tasks
+- [Agent Skills Guide](docs/SKILLS.md) - Using and creating agent skills
+- [MCP Servers Guide](docs/MCP_SERVERS.md) - Extending Copilot with MCP
+- [Agent Workflow](docs/AGENT_WORKFLOW.md) - How agents work together
+- [Quick Start](docs/QUICK_START.md) - 5-minute getting started guide
+- [Architecture](docs/ARCHITECTURE.md) - System design and components
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
 
 ## 🎯 Key Principles
@@ -198,6 +303,7 @@ Automated workflows validate:
    - Agents work autonomously within their roles
    - Iterative feedback loops improve quality
    - Human oversight at key decision points
+   - **Agents continuously optimize their own performance**
 
 4. **Traceability**
    - Issues → Specs → Tasks → Commits → PRs → Releases
@@ -208,6 +314,12 @@ Automated workflows validate:
    - Tests validate against spec requirements
    - Reviews ensure quality and compliance
    - CI enforces standards automatically
+
+6. **Efficiency & Self-Improvement**
+   - **Maximize output and release frequency**
+   - **Minimize token usage** while maintaining quality
+   - **Always use latest documentation** via context7
+   - **Continuous improvement** in all processes
 
 ## 🤝 Contributing
 

@@ -10,6 +10,10 @@ Welcome to the agent-template documentation! This index helps you find what you 
 - **[Main README](../README.md)** - Complete overview of the template
 - **[Contributing Guide](../CONTRIBUTING.md)** - How to contribute
 
+### Advanced Features
+- **[Agent Skills Guide](SKILLS.md)** - Using and creating agent skills
+- **[MCP Servers Guide](MCP_SERVERS.md)** - Extending Copilot with MCP servers
+
 ### Specifications
 - **[Specs README](../specs/README.md)** - How to create and manage specs
 - **[Spec Template](../specs/SPEC_TEMPLATE.md)** - Template for new specs
@@ -23,13 +27,46 @@ Welcome to the agent-template documentation! This index helps you find what you 
 ## 🤖 Agent Documentation
 
 ### Agent Configurations
-All agents are configured in `.github/agents/`:
 
-1. **[plan-agent.json](../.github/agents/plan-agent.json)** - Planning and task creation
-2. **[implement-agent.json](../.github/agents/implement-agent.json)** - Code implementation
-3. **[test-agent.json](../.github/agents/test-agent.json)** - Testing and validation
-4. **[review-agent.json](../.github/agents/review-agent.json)** - Code review
-5. **[refactor-agent.json](../.github/agents/refactor-agent.json)** - Code improvement
+Agents are now in **markdown format** with YAML frontmatter (`.agent.md`):
+
+1. **[plan-agent.agent.md](../.github/agents/plan-agent.agent.md)** - Planning and task creation
+2. **[implement-agent.agent.md](../.github/agents/implement-agent.agent.md)** - Code implementation
+3. **[test-agent.agent.md](../.github/agents/test-agent.agent.md)** - Testing and validation
+4. **[review-agent.agent.md](../.github/agents/review-agent.agent.md)** - Code review
+5. **[refactor-agent.agent.md](../.github/agents/refactor-agent.agent.md)** - Code improvement
+
+**Legacy JSON format** still supported for backward compatibility.
+
+### Agent Efficiency Features
+
+All agents now include:
+- ✅ **Self-improvement directives** - Continuously optimize their operation
+- ✅ **Token optimization** - Minimize usage while maximizing value
+- ✅ **Productivity focus** - Maximize output and release frequency
+- ✅ **Latest documentation** - Always use context7 MCP server
+- ✅ **Performance metrics** - Track and improve effectiveness
+
+## 🎓 Skills and Extensions
+
+### Agent Skills
+
+Located in `.github/skills/`:
+
+- **[SKILL_TEMPLATE.md](../.github/skills/SKILL_TEMPLATE.md)** - Template for creating skills
+- **[spec-driven-development](../.github/skills/spec-driven-development/SKILL.md)** - SPEC methodology skill
+
+Skills are **automatically discovered** and applied by Copilot based on context.
+
+### MCP Servers
+
+Configured in `.vscode/mcp.json`:
+
+- **context7** - Latest documentation for all technologies
+- **filesystem** - Local file system access
+- **github** - GitHub API integration
+
+Add custom MCP servers to extend Copilot's capabilities.
 
 ## 🔧 GitHub Configuration
 

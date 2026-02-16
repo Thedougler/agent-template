@@ -2,9 +2,9 @@
 
 ## System Architecture
 
-The agent-template implements a SPEC-driven development workflow with five custom agents that collaborate throughout the software development lifecycle.
+The agent-template implements a SPEC-driven development workflow with five custom agents, Agent Skills for automatic capability enhancement, and MCP servers for external tool integration. All agents continuously self-improve and optimize for efficiency.
 
-## Component Diagram
+## Enhanced Component Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -18,28 +18,47 @@ The agent-template implements a SPEC-driven development workflow with five custo
 │  │ - Task       │  │ - SPEC-nnn   │  │ - TASK-nnn-n         │  │
 │  └──────────────┘  └──────────────┘  └─────────────────────────┘  │
 │                                                                     │
+│  ┌───────────────────────────────────────────────────────────────┐ │
+│  │ .github/skills/ - Agent Skills (Auto-discovered)              │ │
+│  │  ├─ spec-driven-development/                                  │ │
+│  │  └─ [custom-skills]/                                          │ │
+│  └───────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                        VS Code + Copilot                            │
+│                    VS Code + Copilot + MCP Servers                  │
 │                                                                     │
+│  ┌──────────────────────────────────────────────────────────────┐  │
+│  │ MCP Servers (.vscode/mcp.json)                               │  │
+│  │  ├─ context7: Latest documentation                           │  │
+│  │  ├─ filesystem: Local file access                            │  │
+│  │  └─ github: GitHub API integration                           │  │
+│  └──────────────────────────────────────────────────────────────┘  │
+│                               ↓                                     │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────────┐ │
 │  │ Plan Agent   │  │Implement Agnt│  │      Test Agent          │ │
 │  │              │  │              │  │                          │ │
-│  │ Creates      │  │ Writes       │  │ Validates                │ │
-│  │ tasks from   │──▶│ code for     │──▶│ implementation          │ │
-│  │ specs        │  │ tasks        │  │ with tests              │ │
+│  │ • Creates    │  │ • Writes     │  │ • Validates              │ │
+│  │   tasks      │──▶│   code       │──▶│   with tests            │ │
+│  │ • Uses       │  │ • Queries    │  │ • Optimizes              │ │
+│  │   context7   │  │   context7   │  │   runtime                │ │
+│  │ • Optimizes  │  │ • Maximizes  │  │ • Uses                   │ │
+│  │   for speed  │  │   efficiency │  │   context7               │ │
 │  └──────────────┘  └──────────────┘  └──────────────────────────┘ │
 │                                              │                       │
 │  ┌──────────────┐  ┌──────────────┐        │                       │
 │  │Refactor Agnt │◀─│ Review Agent │◀───────┘                       │
 │  │              │  │              │                                 │
-│  │ Improves     │  │ Checks       │                                 │
-│  │ code quality │  │ quality &    │                                 │
-│  │              │  │ compliance   │                                 │
+│  │ • Improves   │  │ • Checks     │                                 │
+│  │   code       │  │   quality    │                                 │
+│  │ • Uses       │  │ • Verifies   │                                 │
+│  │   context7   │  │   security   │                                 │
+│  │ • Continuous │  │ • Uses       │                                 │
+│  │   optimize   │  │   context7   │                                 │
 │  └──────────────┘  └──────────────┘                                 │
 │                                                                     │
+│  All agents: Self-improving • Token-efficient • Productivity-focused│
 └─────────────────────────────────────────────────────────────────────┘
                                │
                                ▼
@@ -156,20 +175,88 @@ Legend:
 
 ### Core Technologies
 - **GitHub** - Issues, PRs, CI/CD
-- **GitHub Copilot** - AI-powered agents
+- **GitHub Copilot** - AI-powered agents with Skills and MCP
 - **VS Code** - Development environment
 - **Git** - Version control
+
+### Agent Skills (New)
+- **Location**: `.github/skills/`
+- **Format**: SKILL.md with YAML frontmatter
+- **Discovery**: Automatic based on context
+- **Purpose**: Teach Copilot domain-specific patterns
+
+### MCP Servers (New)
+- **context7**: Latest documentation provider
+- **filesystem**: Local file operations
+- **github**: GitHub API integration
+- **Protocol**: Model Context Protocol (open standard)
+- **Configuration**: `.vscode/mcp.json`
 
 ### Automation
 - **GitHub Actions** - CI/CD pipelines
 - **YAML** - Configuration files
-- **JSON** - Agent definitions
-- **Markdown** - Documentation
+- **JSON** - Agent definitions (legacy)
+- **Markdown** - Agent definitions (current) and Skills
 
 ### Validation
 - **markdownlint** - Markdown quality
 - **jq** - JSON validation
 - **bash** - Script automation
+
+## Advanced Features
+
+### Agent Skills System
+
+```
+Copilot Prompt
+      ↓
+   Analyzes prompt
+      ↓
+Checks .github/skills/
+      ↓
+Matches relevant SKILL.md
+      ↓
+Loads instructions
+      ↓
+Applies to response
+```
+
+**Benefits:**
+- Automatic pattern application
+- No manual invocation needed
+- Context-aware activation
+- Reusable across projects
+
+### MCP Integration
+
+```
+Agent needs information
+      ↓
+Queries MCP server
+      ↓
+context7 → Latest docs
+filesystem → Local files
+github → API data
+      ↓
+Returns fresh data
+      ↓
+Agent uses in response
+```
+
+**Benefits:**
+- Always current information
+- Real-time data access
+- External tool integration
+- Extensible architecture
+
+### Efficiency Optimization
+
+All agents optimize for:
+- **Speed**: Rapid iteration, parallel tasks
+- **Quality**: Latest patterns via context7
+- **Tokens**: Minimal usage, maximum value
+- **Output**: High productivity, fast releases
+- **Learning**: Continuous self-improvement
 
 ## Directory Structure Details
 
@@ -178,11 +265,17 @@ agent-template/
 │
 ├── .github/                    # GitHub configuration
 │   ├── agents/                # Custom agent definitions
-│   │   ├── plan-agent.json
-│   │   ├── implement-agent.json
-│   │   ├── test-agent.json
-│   │   ├── review-agent.json
-│   │   └── refactor-agent.json
+│   │   ├── plan-agent.agent.md       # Markdown format (current)
+│   │   ├── implement-agent.agent.md
+│   │   ├── test-agent.agent.md
+│   │   ├── review-agent.agent.md
+│   │   ├── refactor-agent.agent.md
+│   │   └── *.json                    # JSON format (legacy)
+│   │
+│   ├── skills/                # Agent Skills (auto-discovered)
+│   │   ├── SKILL_TEMPLATE.md
+│   │   └── spec-driven-development/
+│   │       └── SKILL.md
 │   │
 │   ├── workflows/             # CI/CD automation
 │   │   ├── ci.yml            # Structure & quality checks
@@ -197,11 +290,16 @@ agent-template/
 │   │
 │   └── PULL_REQUEST_TEMPLATE.md  # PR template
 │
+├── .vscode/                   # VS Code configuration
+│   └── mcp.json              # MCP server configuration
+│
 ├── docs/                      # Documentation
 │   ├── README.md             # Doc index
 │   ├── QUICK_START.md        # Quick start guide
 │   ├── AGENT_WORKFLOW.md     # Agent details
-│   ├── IMPLEMENTATION_SUMMARY.md  # This implementation
+│   ├── SKILLS.md             # Agent Skills guide (new)
+│   ├── MCP_SERVERS.md        # MCP servers guide (new)
+│   ├── IMPLEMENTATION_SUMMARY.md
 │   └── ARCHITECTURE.md       # This file
 │
 ├── specs/                     # Specifications
