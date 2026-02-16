@@ -1,0 +1,68 @@
+name: Feature Spec
+description: Create a new feature specification for SPEC-driven development
+title: "[SPEC]: "
+labels: ["spec", "feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Create a Feature Specification
+        This template helps you create a detailed spec that will guide implementation through the entire development lifecycle.
+        
+  - type: textarea
+    id: user-intent
+    attributes:
+      label: User Intent
+      description: What do you want to accomplish? Describe the problem or feature from a user perspective.
+      placeholder: "As a user, I want to..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: List the functional and non-functional requirements
+      placeholder: |
+        Functional:
+        1. ...
+        2. ...
+        
+        Non-Functional:
+        1. Performance: ...
+        2. Security: ...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know when this is complete? List testable criteria.
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+        - [ ] Criterion 3
+    validations:
+      required: true
+      
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: Are there any technical, time, or resource constraints?
+      placeholder: "Must use existing authentication system, complete within 2 weeks, etc."
+      
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: List any external dependencies, libraries, or other specs this depends on
+      placeholder: "Depends on SPEC-001, requires library X, needs API Y"
+      
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that would help with implementation
+      placeholder: "Add any relevant screenshots, diagrams, or examples"
