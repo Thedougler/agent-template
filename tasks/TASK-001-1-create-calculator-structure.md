@@ -47,19 +47,19 @@ Small (< 2 hours)
 ```python
 class Calculator:
     """A simple calculator for basic arithmetic operations."""
-    
+
     def add(self, a: float, b: float) -> float:
         """Add two numbers."""
         pass
-    
+
     def subtract(self, a: float, b: float) -> float:
         """Subtract b from a."""
         pass
-    
+
     def multiply(self, a: float, b: float) -> float:
         """Multiply two numbers."""
         pass
-    
+
     def divide(self, a: float, b: float) -> float:
         """Divide a by b. Raises ValueError if b is zero."""
         pass
@@ -128,7 +128,7 @@ Number = Union[int, float]
 class Calculator:
     """
     A simple calculator for basic arithmetic operations.
-    
+
     Example:
         >>> calc = Calculator()
         >>> calc.add(5, 3)
@@ -136,57 +136,57 @@ class Calculator:
         >>> calc.divide(10, 2)
         5.0
     """
-    
+
     def add(self, a: Number, b: Number) -> float:
         """
         Add two numbers.
-        
+
         Args:
             a: First number
             b: Second number
-            
+
         Returns:
             Sum of a and b
         """
         return float(a + b)
-    
+
     def subtract(self, a: Number, b: Number) -> float:
         """
         Subtract b from a.
-        
+
         Args:
             a: Number to subtract from
             b: Number to subtract
-            
+
         Returns:
             Difference of a and b
         """
         return float(a - b)
-    
+
     def multiply(self, a: Number, b: Number) -> float:
         """
         Multiply two numbers.
-        
+
         Args:
             a: First number
             b: Second number
-            
+
         Returns:
             Product of a and b
         """
         return float(a * b)
-    
+
     def divide(self, a: Number, b: Number) -> float:
         """
         Divide a by b.
-        
+
         Args:
             a: Dividend
             b: Divisor
-            
+
         Returns:
             Quotient of a and b
-            
+
         Raises:
             ValueError: If b is zero
         """

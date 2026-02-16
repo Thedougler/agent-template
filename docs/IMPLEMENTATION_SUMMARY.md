@@ -98,9 +98,10 @@ Created 3 automated workflows:
    - Validates spec format and required sections
    - Enforces traceability
 
-3. **task-tracking.yml** - Task automation:
+3. **task-tracking.yml** - Task workflow scaffolding:
    - Updates task status on PR merge
-   - Creates spec files from issues
+   - Placeholder for automatic spec creation from issues
+   - Posts informational comments to guide manual workflow
    - Automates workflow tracking
 
 ### 7. Documentation

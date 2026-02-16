@@ -8,7 +8,7 @@ body:
       value: |
         ## Report a Bug
         This will create a spec for fixing the issue.
-        
+
   - type: textarea
     id: description
     attributes:
@@ -17,7 +17,7 @@ body:
       placeholder: "When I do X, Y happens, but Z should happen instead"
     validations:
       required: true
-      
+
   - type: textarea
     id: reproduction
     attributes:
@@ -29,7 +29,7 @@ body:
         3. See error...
     validations:
       required: true
-      
+
   - type: textarea
     id: expected
     attributes:
@@ -37,7 +37,7 @@ body:
       description: What should happen?
     validations:
       required: true
-      
+
   - type: textarea
     id: actual
     attributes:
@@ -45,7 +45,7 @@ body:
       description: What actually happens?
     validations:
       required: true
-      
+
   - type: textarea
     id: environment
     attributes:
@@ -55,14 +55,14 @@ body:
         - OS: [e.g. Windows 11, macOS 14]
         - Browser: [e.g. Chrome 120, Firefox 121]
         - Version: [e.g. 1.2.3]
-      
+
   - type: textarea
     id: logs
     attributes:
       label: Relevant Logs or Errors
       description: Include any error messages, stack traces, or logs
       render: shell
-      
+
   - type: textarea
     id: additional-context
     attributes:

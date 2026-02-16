@@ -11,15 +11,15 @@ jobs:
     name: Validate Spec Linking
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Check PR links to spec or issue
         run: |
           PR_BODY="${{ github.event.pull_request.body }}"
-          
+
           if echo "$PR_BODY" | grep -qE "(Closes|Fixes|Resolves|Related to) #[0-9]+"; then
             echo "✅ PR is linked to an issue or spec"
             exit 0
@@ -36,52 +36,52 @@ jobs:
     name: Validate Spec Format
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
+
       - name: Check for spec files in PR
         run: |
           # Get list of changed files
           CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
           SPEC_FILES=$(echo "$CHANGED_FILES" | grep "^specs/.*\.md$" || true)
-          
+
           if [ -z "$SPEC_FILES" ]; then
             echo "ℹ️ No spec files changed in this PR"
             exit 0
           fi
-          
+
           echo "📋 Validating spec files:"
           echo "$SPEC_FILES"
-          
+
           # Validate each spec file contains required sections
           for spec_file in $SPEC_FILES; do
             if [ ! -f "$spec_file" ]; then
               continue
             fi
-            
+
             echo "Checking $spec_file..."
-            
+
             # Check for required sections
             required_sections=("## Overview" "## Requirements" "## Acceptance Criteria" "## Status")
             missing_sections=()
-            
+
             for section in "${required_sections[@]}"; do
               if ! grep -q "$section" "$spec_file"; then
                 missing_sections+=("$section")
               fi
             done
-            
+
             if [ ${#missing_sections[@]} -gt 0 ]; then
               echo "❌ $spec_file is missing required sections:"
               printf '%s\n' "${missing_sections[@]}"
               exit 1
             fi
-            
+
             echo "✅ $spec_file has all required sections"
           done
-          
+
           echo "✅ All spec files are properly formatted"

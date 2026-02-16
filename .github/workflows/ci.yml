@@ -10,18 +10,18 @@ jobs:
   lint-and-format:
     name: Lint and Format Check
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Check Markdown files
         uses: DavidAnson/markdownlint-cli2-action@v15
         with:
           globs: '**/*.md'
           config: '.markdownlint.json'
         continue-on-error: true
-        
+
       - name: Check for trailing whitespace
         run: |
           if git grep -I --line-number '[[:space:]]$' -- '*.md' '*.yml' '*.yaml' '*.json'; then
@@ -34,11 +34,11 @@ jobs:
   validate-structure:
     name: Validate Repository Structure
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Check required directories exist
         run: |
           required_dirs=(
@@ -48,22 +48,22 @@ jobs:
             "specs"
             "tasks"
           )
-          
+
           missing_dirs=()
           for dir in "${required_dirs[@]}"; do
             if [ ! -d "$dir" ]; then
               missing_dirs+=("$dir")
             fi
           done
-          
+
           if [ ${#missing_dirs[@]} -gt 0 ]; then
             echo "❌ Missing required directories:"
             printf '%s\n' "${missing_dirs[@]}"
             exit 1
           fi
-          
+
           echo "✅ All required directories exist"
-          
+
       - name: Check required files exist
         run: |
           required_files=(
@@ -74,50 +74,55 @@ jobs:
             "tasks/TASK_TEMPLATE.md"
             ".github/PULL_REQUEST_TEMPLATE.md"
           )
-          
+
           missing_files=()
           for file in "${required_files[@]}"; do
             if [ ! -f "$file" ]; then
               missing_files+=("$file")
             fi
           done
-          
+
           if [ ${#missing_files[@]} -gt 0 ]; then
             echo "❌ Missing required files:"
             printf '%s\n' "${missing_files[@]}"
             exit 1
           fi
-          
+
           echo "✅ All required files exist"
 
   validate-agents:
     name: Validate Agent Configurations
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Validate agent JSON files
         run: |
+          shopt -s nullglob
           agent_files=(.github/agents/*.json)
-          
+
           if [ ${#agent_files[@]} -eq 0 ]; then
-            echo "❌ No agent configuration files found"
-            exit 1
+            echo "⚠️  No JSON agent configuration files found (this is OK if using markdown agents)"
+            exit 0
           fi
-          
+
           echo "🤖 Validating agent configurations..."
-          
+
           for agent_file in "${agent_files[@]}"; do
+            if [ ! -f "$agent_file" ]; then
+              continue
+            fi
+
             echo "Checking $agent_file..."
-            
+
             # Validate JSON syntax
             if ! jq empty "$agent_file" 2>/dev/null; then
               echo "❌ $agent_file is not valid JSON"
               exit 1
             fi
-            
+
             # Check required fields
             required_fields=("name" "description" "instructions")
             for field in "${required_fields[@]}"; do
@@ -126,8 +131,8 @@ jobs:
                 exit 1
               fi
             done
-            
+
             echo "✅ $agent_file is valid"
           done
-          
+
           echo "✅ All agent configurations are valid"

@@ -15,14 +15,14 @@
 ## Acceptance Criteria
 <!-- Specific, testable criteria for task completion -->
 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
+- [ ]
 
 ## Dependencies
 <!-- Other tasks that must be completed first -->
 
-- 
+-
 
 ## Estimated Effort
 <!-- Time estimate: Small (< 2 hours), Medium (2-8 hours), Large (> 8 hours) -->

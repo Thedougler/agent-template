@@ -135,10 +135,10 @@ Each step uses the appropriate agent to maintain quality and traceability.
 
 ## 📖 Learn More
 
-- [README.md](README.md) - Full overview
-- [CONTRIBUTING.md](CONTRIBUTING.md) - Detailed guidelines
-- [docs/AGENT_WORKFLOW.md](docs/AGENT_WORKFLOW.md) - Agent details
-- [specs/SPEC-001-example-calculator.md](specs/SPEC-001-example-calculator.md) - Complete example
+- [README.md](../README.md) - Full overview
+- [CONTRIBUTING.md](../CONTRIBUTING.md) - Detailed guidelines
+- [docs/AGENT_WORKFLOW.md](AGENT_WORKFLOW.md) - Agent details
+- [specs/SPEC-001-example-calculator.md](../specs/SPEC-001-example-calculator.md) - Complete example
 
 ## 🆘 Need Help?
 

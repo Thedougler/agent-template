@@ -10,14 +10,14 @@
 <!-- Detailed functional and non-functional requirements -->
 
 ### Functional Requirements
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ### Non-Functional Requirements
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Constraints
 <!-- Technical, time, or resource constraints -->
@@ -38,9 +38,9 @@
 ### Tasks
 <!-- List of tasks created for this spec (filled by plan-agent) -->
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ### Testing Strategy
 <!-- Approach to testing and validation -->

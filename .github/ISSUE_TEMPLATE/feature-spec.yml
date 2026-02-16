@@ -8,7 +8,7 @@ body:
       value: |
         ## Create a Feature Specification
         This template helps you create a detailed spec that will guide implementation through the entire development lifecycle.
-        
+
   - type: textarea
     id: user-intent
     attributes:
@@ -17,7 +17,7 @@ body:
       placeholder: "As a user, I want to..."
     validations:
       required: true
-      
+
   - type: textarea
     id: requirements
     attributes:
@@ -27,13 +27,13 @@ body:
         Functional:
         1. ...
         2. ...
-        
+
         Non-Functional:
         1. Performance: ...
         2. Security: ...
     validations:
       required: true
-      
+
   - type: textarea
     id: acceptance-criteria
     attributes:
@@ -45,21 +45,21 @@ body:
         - [ ] Criterion 3
     validations:
       required: true
-      
+
   - type: textarea
     id: constraints
     attributes:
       label: Constraints
       description: Are there any technical, time, or resource constraints?
       placeholder: "Must use existing authentication system, complete within 2 weeks, etc."
-      
+
   - type: textarea
     id: dependencies
     attributes:
       label: Dependencies
       description: List any external dependencies, libraries, or other specs this depends on
       placeholder: "Depends on SPEC-001, requires library X, needs API Y"
-      
+
   - type: textarea
     id: additional-context
     attributes:
