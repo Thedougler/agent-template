@@ -17,9 +17,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check PR links to spec or issue
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: |
-          PR_BODY="${{ github.event.pull_request.body }}"
-
           # Allow PRs without body (like initial setup PRs)
           if [ -z "$PR_BODY" ]; then
             echo "⚠️  PR has no description - skipping validation"
@@ -54,10 +54,10 @@ jobs:
         run: |
           # Get list of changed files
           CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
-          SPEC_FILES=$(echo "$CHANGED_FILES" | grep "^specs/.*\.md$" || true)
+          SPEC_FILES=$(echo "$CHANGED_FILES" | grep "^specs/SPEC-.*\.md$" || true)
 
           if [ -z "$SPEC_FILES" ]; then
-            echo "ℹ️ No spec files changed in this PR"
+            echo "ℹ️ No actual spec files (SPEC-*.md) changed in this PR"
             exit 0
           fi
 
