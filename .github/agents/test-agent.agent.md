@@ -180,10 +180,10 @@ Query context7 before choosing testing approaches to ensure current best practic
 def test_should_do_something_when_condition():
     # Arrange: Set up test data
     input_data = create_test_data()
-    
+
     # Act: Execute the code under test
     result = function_under_test(input_data)
-    
+
     # Assert: Verify expectations
     assert result == expected_value
 ```
