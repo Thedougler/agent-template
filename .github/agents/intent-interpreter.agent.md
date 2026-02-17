@@ -15,7 +15,7 @@ tools:
   - run_in_terminal
   - get_errors
   - list_dir
-model: Claude Sonnet 4
+model: Claude Opus 4.6
 handoffs:
   - label: Create Implementation Plan
     agent: planner
