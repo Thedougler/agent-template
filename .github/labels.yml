@@ -1,0 +1,84 @@
+# Label definitions for the repository.
+# Synced by .github/workflows/label-sync.yml on push to main.
+# Add new labels here — the workflow will create/update them automatically.
+
+# --- Workflow ---
+- name: spec
+  color: "0075ca"
+  description: "Specification document"
+- name: task
+  color: "a2eeef"
+  description: "Implementation task"
+
+# --- Type ---
+- name: feature
+  color: "1d76db"
+  description: "New feature or enhancement"
+- name: bug
+  color: "d73a4a"
+  description: "Something isn't working"
+- name: enhancement
+  color: "a2eeef"
+  description: "Improvement to existing functionality"
+- name: documentation
+  color: "0075ca"
+  description: "Documentation only changes"
+- name: dependencies
+  color: "0366d6"
+  description: "Dependency updates"
+- name: ci
+  color: "e4e669"
+  description: "CI/CD and workflow changes"
+
+# --- Priority ---
+- name: "priority:high"
+  color: "b60205"
+  description: "Must be addressed soon"
+- name: "priority:medium"
+  color: "fbca04"
+  description: "Should be addressed"
+- name: "priority:low"
+  color: "0e8a16"
+  description: "Nice to have"
+
+# --- Effort ---
+- name: "effort:small"
+  color: "c5def5"
+  description: "Less than 2 hours"
+- name: "effort:medium"
+  color: "bfd4f2"
+  description: "2-8 hours"
+- name: "effort:large"
+  color: "d4c5f9"
+  description: "More than 8 hours — consider breaking down"
+
+# --- Agent ---
+- name: "agent:planner"
+  color: "e6ccb3"
+  description: "Assigned to planner agent"
+- name: "agent:specification"
+  color: "c2e0c6"
+  description: "Assigned to specification agent"
+- name: "agent:react"
+  color: "fef2c0"
+  description: "Assigned to React frontend engineer agent"
+- name: "agent:actions"
+  color: "f9d0c4"
+  description: "Assigned to GitHub Actions expert agent"
+- name: "agent:playwright"
+  color: "d4c5f9"
+  description: "Assigned to Playwright tester agent"
+- name: "agent:janitor"
+  color: "bfd4f2"
+  description: "Assigned to janitor agent"
+
+# --- Status ---
+- name: "status:blocked"
+  color: "b60205"
+  description: "Blocked by dependency or decision"
+- name: "status:in-progress"
+  color: "fbca04"
+  description: "Currently being worked on"
+- name: "status:needs-review"
+  color: "0e8a16"
+  description: "Ready for review"

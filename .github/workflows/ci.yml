@@ -7,8 +7,12 @@ on:
     branches: [ main ]
 
 jobs:
-  lint-and-format:
-    name: Lint and Format Check
+  validate:
+    name: Validate Repository
+    uses: ./.github/workflows/validate-repo.yml
+
+  lint:
+    name: Lint Markdown
     runs-on: ubuntu-latest
 
     steps:
@@ -21,74 +25,6 @@ jobs:
           globs: '**/*.md'
           config: '.markdownlint.json'
         continue-on-error: true
-
-      - name: Check for trailing whitespace
-        run: |
-          if git grep -I --line-number '[[:space:]]$' -- '*.md' '*.yml' '*.yaml' '*.json'; then
-            echo "❌ Found trailing whitespace in files above"
-            exit 1
-          else
-            echo "✅ No trailing whitespace found"
-          fi
-
-  validate-structure:
-    name: Validate Repository Structure
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Check required directories exist
-        run: |
-          required_dirs=(
-            ".github/agents"
-            ".github/workflows"
-            ".github/ISSUE_TEMPLATE"
-            "specs"
-            "tasks"
-          )
-
-          missing_dirs=()
-          for dir in "${required_dirs[@]}"; do
-            if [ ! -d "$dir" ]; then
-              missing_dirs+=("$dir")
-            fi
-          done
-
-          if [ ${#missing_dirs[@]} -gt 0 ]; then
-            echo "❌ Missing required directories:"
-            printf '%s\n' "${missing_dirs[@]}"
-            exit 1
-          fi
-
-          echo "✅ All required directories exist"
-
-      - name: Check required files exist
-        run: |
-          required_files=(
-            "README.md"
-            "specs/README.md"
-            "specs/SPEC_TEMPLATE.md"
-            "tasks/README.md"
-            "tasks/TASK_TEMPLATE.md"
-            ".github/PULL_REQUEST_TEMPLATE.md"
-          )
-
-          missing_files=()
-          for file in "${required_files[@]}"; do
-            if [ ! -f "$file" ]; then
-              missing_files+=("$file")
-            fi
-          done
-
-          if [ ${#missing_files[@]} -gt 0 ]; then
-            echo "❌ Missing required files:"
-            printf '%s\n' "${missing_files[@]}"
-            exit 1
-          fi
-
-          echo "✅ All required files exist"
 
   validate-agents:
     name: Validate Agent Configurations

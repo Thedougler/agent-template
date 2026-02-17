@@ -1,0 +1,16 @@
+# Dependabot configuration
+# Keeps GitHub Actions up to date automatically.
+# When source code with dependencies is added, extend this file
+# with the appropriate package ecosystem.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "ci"
+    commit-message:
+      prefix: "ci"
+      include: "scope"

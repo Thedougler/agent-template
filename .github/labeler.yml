@@ -1,0 +1,30 @@
+# PR auto-labeling rules — used by .github/workflows/labeler.yml
+# Maps file path globs to labels applied automatically on PRs.
+
+spec:
+  - changed-files:
+      - any-glob-to-any-file: 'specs/**'
+
+task:
+  - changed-files:
+      - any-glob-to-any-file: 'tasks/**'
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file: '.github/workflows/**'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'docs/**'
+          - '*.md'
+          - '!specs/**'
+          - '!tasks/**'
+
+agent:
+  - changed-files:
+      - any-glob-to-any-file: '.github/agents/**'
+
+skill:
+  - changed-files:
+      - any-glob-to-any-file: '.github/skills/**'

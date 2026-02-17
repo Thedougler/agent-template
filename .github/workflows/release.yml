@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get previous tag
+        id: prev_tag
+        run: |
+          PREV=$(git tag --sort=-v:refname | head -2 | tail -1)
+          echo "tag=${PREV:-$(git rev-list --max-parents=0 HEAD)}" >> "$GITHUB_OUTPUT"
+
+      - name: Collect completed specs
+        id: specs
+        run: |
+          {
+            echo "summary<<EOF"
+            echo "## Completed Specs"
+            echo ""
+            for spec in specs/SPEC-[0-9]*.md; do
+              [ -f "$spec" ] || continue
+              if grep -q 'Complete' "$spec"; then
+                TITLE=$(head -1 "$spec" | sed 's/^# //')
+                echo "- **${TITLE}**"
+              fi
+            done
+            echo ""
+            echo "## Changes"
+            echo ""
+            git log "${{ steps.prev_tag.outputs.tag }}".."${{ github.ref_name }}" \
+              --pretty=format:"- %s (%h)" --no-merges
+            echo ""
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const tag = context.ref.replace('refs/tags/', '');
+            await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: tag,
+              name: `Release ${tag}`,
+              body: `${{ steps.specs.outputs.summary }}`,
+              draft: false,
+              prerelease: tag.includes('-'),
+            });
