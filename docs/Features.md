@@ -148,11 +148,11 @@ The template includes GitHub Actions workflows and configuration for:
 
 Three files give agents and humans visibility into project state:
 
-| File             | Purpose                                          | Edited by          |
-| ---------------- | ------------------------------------------------ | ------------------ |
-| `ROADMAP.md`     | Milestones and strategic goals                   | Humans             |
-| `TODO.md`        | Active tasks linked to GitHub Issues             | Agents and humans  |
-| `CHANGELOG.md`   | Release history grouped by Conventional Commits  | Workflow only      |
+| File           | Purpose                                         | Edited by         |
+| -------------- | ----------------------------------------------- | ----------------- |
+| `ROADMAP.md`   | Milestones and strategic goals                  | Humans            |
+| `TODO.md`      | Active tasks linked to GitHub Issues            | Agents and humans |
+| `CHANGELOG.md` | Release history grouped by Conventional Commits | Workflow only     |
 
 `TODO.md` entries use `<!-- todo:NUMBER -->` markers. When the linked GitHub Issue is closed, the `todo-sync` workflow automatically removes the entry.
 
