@@ -46,10 +46,10 @@ Testable conditions that prove this spec is fully implemented:
 
 ## Dependencies
 
-| Dependency | Type | Status |
-|-----------|------|--------|
-| SPEC-XXX  | Blocks | Draft |
-| Library X | External | Available |
+| Dependency | Type     | Status    |
+| ---------- | -------- | --------- |
+| SPEC-XXX   | Blocks   | Draft     |
+| Library X  | External | Available |
 
 ## Design Notes
 

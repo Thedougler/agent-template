@@ -91,14 +91,14 @@ agent-template/
 
 ### Key Patterns
 
-| Pattern | Implementation | Purpose |
-|---------|---------------|---------|
-| **Ralph Loop** | `orchestrate` skill | Plan → implement → test → review → refine cycle |
-| **Self-Evaluation** | `agentic-eval` skill + Mandatory Completion Protocol | Agent critiques own output before committing |
-| **SPEC-Driven Development** | `spec-driven-development` skill + templates | Captures intent, requirements, and acceptance criteria before coding |
-| **Skill System** | `.github/skills/*/SKILL.md` | Modular, discoverable AI capabilities loaded on demand |
-| **Quality Gates** | `scripts/quality.sh` + CI workflow | Automated enforcement of code standards |
-| **Self-Bootstrapping** | `skill-lookup` skill | Agent discovers and installs missing capabilities at runtime |
+| Pattern                     | Implementation                                       | Purpose                                                              |
+| --------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------- |
+| **Ralph Loop**              | `orchestrate` skill                                  | Plan → implement → test → review → refine cycle                      |
+| **Self-Evaluation**         | `agentic-eval` skill + Mandatory Completion Protocol | Agent critiques own output before committing                         |
+| **SPEC-Driven Development** | `spec-driven-development` skill + templates          | Captures intent, requirements, and acceptance criteria before coding |
+| **Skill System**            | `.github/skills/*/SKILL.md`                          | Modular, discoverable AI capabilities loaded on demand               |
+| **Quality Gates**           | `scripts/quality.sh` + CI workflow                   | Automated enforcement of code standards                              |
+| **Self-Bootstrapping**      | `skill-lookup` skill                                 | Agent discovers and installs missing capabilities at runtime         |
 
 ## Out of Scope
 

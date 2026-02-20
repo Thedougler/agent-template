@@ -15,11 +15,11 @@ Thank you for contributing! This project follows a SPEC-driven development workf
 
 These agents handle focused tasks via `runSubagent` delegation:
 
-| Agent | Purpose | Usage |
-|-------|---------|-------|
-| **@Context7-Expert** | Live library documentation lookup | `@context7 How does X work in library Y?` |
-| **@Universal Janitor** | Tech debt elimination, dead code removal | `@janitor Clean up unused dependencies` |
-| **@Playwright Tester** | E2E test generation and execution | `@playwright-tester Test the login flow` |
+| Agent                  | Purpose                                  | Usage                                     |
+| ---------------------- | ---------------------------------------- | ----------------------------------------- |
+| **@Context7-Expert**   | Live library documentation lookup        | `@context7 How does X work in library Y?` |
+| **@Universal Janitor** | Tech debt elimination, dead code removal | `@janitor Clean up unused dependencies`   |
+| **@Playwright Tester** | E2E test generation and execution        | `@playwright-tester Test the login flow`  |
 
 ## Creating a Spec
 
@@ -43,6 +43,7 @@ These agents handle focused tasks via `runSubagent` delegation:
 ### From a Spec File
 
 1. **Copy the template**:
+
    ```bash
    cp specs/SPEC_TEMPLATE.md specs/SPEC-XXX-your-feature.md
    ```
@@ -133,12 +134,14 @@ If code needs improvement, use the `refactor` skill or **@Universal Janitor** ag
 ### PR Requirements
 
 1. **Link to spec/issue**:
+
    ```markdown
    Closes #123
    Related Spec: SPEC-001
    ```
 
 2. **List completed tasks**:
+
    ```markdown
    - [x] TASK-001-1 - Database setup
    - [x] TASK-001-2 - API endpoints
@@ -162,6 +165,7 @@ If code needs improvement, use the `refactor` skill or **@Universal Janitor** ag
 ### PR Template
 
 Use the provided template (`.github/PULL_REQUEST_TEMPLATE.md`) which includes:
+
 - Related issue/spec
 - Type of change
 - Implementation details

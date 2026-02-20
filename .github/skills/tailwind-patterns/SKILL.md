@@ -76,5 +76,5 @@ Use increments of 4: `gap-4`, `p-6`, `py-8`, `space-y-12`, `py-16`, `py-24`
 
 ## Full Reference
 
-Complete patterns: `.claude/skills/tailwind-pattern/SKILL.md`
+Complete patterns: `.github/skills/tailwind-patterns/SKILL.md`
 Swiss design: `docs/agent/design/style-guide.md`
