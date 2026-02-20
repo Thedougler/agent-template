@@ -57,12 +57,15 @@ Developers want to start a new project and immediately benefit from:
 - [x] 3 agents defined: Context7-Expert, Universal Janitor, Playwright Tester
 - [x] 50+ skills available in `.github/skills/`
 - [x] GitHub Actions: label-sync, auto-label, release workflows present
-- [x] Issue templates: bug report, feature request, task
-- [x] PR template with checklist
-- [x] CI workflow runs quality checks on PRs
+- [x] Issue templates: bug report, feature request, task (YAML forms with validation)
+- [x] PR template with checklist and Related Spec field
+- [x] CI workflow runs quality checks and smoke tests on PRs
 - [x] Pre-commit hooks enforce baseline quality (trailing whitespace, YAML/JSON validation, merge conflict detection, private key detection)
 - [x] `.env.example`, `.editorconfig`, `.gitattributes`, `.gitignore` configured
 - [x] README documents the template's value, structure, and usage
+- [x] Tracking files: ROADMAP.md (milestones), TODO.md (backlog), CHANGELOG.md (auto-generated)
+- [x] Changelog workflow auto-generates release history from Conventional Commits
+- [x] Auto-labeler covers all project directories (app, scripts, tests, specs, tasks, agents, skills, deps)
 
 ## Architecture
 

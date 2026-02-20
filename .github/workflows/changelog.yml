@@ -1,0 +1,87 @@
+name: Changelog
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  changelog:
+    name: Update Changelog
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Get previous tag
+        id: prev_tag
+        run: |
+          PREV=$(git tag --sort=-v:refname | grep -v "^${{ github.ref_name }}$" | head -1)
+          echo "tag=${PREV:-$(git rev-list --max-parents=0 HEAD)}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate and insert changelog entry
+        run: |
+          TAG="${{ github.ref_name }}"
+          PREV="${{ steps.prev_tag.outputs.tag }}"
+
+          python3 - "$TAG" "$PREV" <<'PYEOF'
+          import subprocess, sys, re
+          from datetime import datetime, timezone
+
+          tag, prev = sys.argv[1], sys.argv[2]
+          date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+          commits = subprocess.run(
+              ["git", "log", f"{prev}..{tag}", "--pretty=format:%s (%h)", "--no-merges"],
+              capture_output=True, text=True
+          ).stdout.strip().splitlines()
+
+          types = [
+              ("feat", "Features"), ("fix", "Bug Fixes"), ("docs", "Documentation"),
+              ("refactor", "Refactoring"), ("perf", "Performance"), ("test", "Tests"),
+              ("ci", "CI/CD"), ("chore", "Chores"), ("build", "Build"),
+          ]
+
+          sections, used = [], set()
+          for prefix, label in types:
+              matched = [c for c in commits if re.match(rf"^{prefix}[(!:]", c)]
+              if matched:
+                  sections.append(f"### {label}\n")
+                  sections.extend(f"- {c}" for c in matched)
+                  sections.append("")
+                  used.update(matched)
+
+          other = [c for c in commits if c not in used]
+          if other:
+              sections.append("### Other\n")
+              sections.extend(f"- {c}" for c in other)
+              sections.append("")
+
+          entry = f"## [{tag}] — {date}\n\n" + "\n".join(sections)
+
+          with open("CHANGELOG.md", "r") as f:
+              content = f.read()
+
+          content = content.replace("<!-- changelog-start -->", f"<!-- changelog-start -->\n\n{entry}", 1)
+
+          with open("CHANGELOG.md", "w") as f:
+              f.write(content)
+
+          print(f"Added changelog entry for {tag} ({len(commits)} commits)")
+          PYEOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git diff --cached --quiet && exit 0
+          git commit -m "docs: update CHANGELOG.md for ${{ github.ref_name }}"
+          git push origin main

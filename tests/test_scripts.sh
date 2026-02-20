@@ -84,7 +84,7 @@ done
 # ── 7. Key project files exist ───────────────────────────────────
 echo ""
 echo "── Project files ──"
-for file in README.md CONTRIBUTING.md SPEC.md LICENSE .github/copilot-instructions.md; do
+for file in README.md CONTRIBUTING.md SPEC.md LICENSE ROADMAP.md TODO.md CHANGELOG.md .github/copilot-instructions.md; do
   if [ -f "$file" ]; then
     pass "$file exists"
   else
@@ -122,6 +122,43 @@ if [ "$SKILL_COUNT" -ge 10 ]; then
 else
   fail "Only $SKILL_COUNT skills found (expected 10+)"
 fi
+
+# ── 11. Required workflows exist ─────────────────────────────────
+echo ""
+echo "── Workflows ──"
+for wf in ci.yml release.yml label-sync.yml auto-label.yml changelog.yml todo-sync.yml; do
+  if [ -f ".github/workflows/$wf" ]; then
+    pass "$wf workflow exists"
+  else
+    fail "$wf workflow missing"
+  fi
+done
+
+# ── 12. TODO.md has marker structure ──────────────────────────────
+echo ""
+echo "── Tracking files ──"
+if grep -q '<!-- todo-start -->' TODO.md && grep -q '<!-- todo-end -->' TODO.md; then
+  pass "TODO.md has todo markers"
+else
+  fail "TODO.md missing todo-start/todo-end markers"
+fi
+
+if grep -q '<!-- changelog-start -->' CHANGELOG.md; then
+  pass "CHANGELOG.md has changelog marker"
+else
+  fail "CHANGELOG.md missing changelog-start marker"
+fi
+
+# ── 13. Issue templates are YAML ──────────────────────────────────
+echo ""
+echo "── Issue templates ──"
+for tmpl in bug_report.yml feature_request.yml task.yml; do
+  if [ -f ".github/ISSUE_TEMPLATE/$tmpl" ]; then
+    pass "$tmpl exists"
+  else
+    fail "$tmpl missing"
+  fi
+done
 
 # ── Summary ──────────────────────────────────────────────────────
 echo ""

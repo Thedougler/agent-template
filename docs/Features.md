@@ -135,12 +135,26 @@ All scripts are idempotent, use `set -euo pipefail`, and auto-detect the project
 
 The template includes GitHub Actions workflows and configuration for:
 
-- **CI** — Runs quality checks on pull requests
+- **CI** — Runs quality checks and smoke tests on pull requests
 - **Label Sync** — Keeps labels consistent via `labels.yml`
 - **Auto-Label** — Automatically labels PRs based on changed paths via `labeler.yml`
-- **Releases** — Automated release workflow
-- **Issue Templates** — Bug report, feature request, and task templates
-- **PR Template** — Structured pull request format
+- **Releases** — Automated release workflow with spec-driven release notes
+- **Changelog** — Auto-generates `CHANGELOG.md` from Conventional Commits on tag push
+- **TODO Sync** — Removes closed-issue entries from `TODO.md` automatically
+- **Issue Templates** — Bug report, feature request, and task (YAML forms with validation)
+- **PR Template** — Structured format with Related Spec field and checklist
+
+## Tracking Files
+
+Three files give agents and humans visibility into project state:
+
+| File             | Purpose                                          | Edited by          |
+| ---------------- | ------------------------------------------------ | ------------------ |
+| `ROADMAP.md`     | Milestones and strategic goals                   | Humans             |
+| `TODO.md`        | Active tasks linked to GitHub Issues             | Agents and humans  |
+| `CHANGELOG.md`   | Release history grouped by Conventional Commits  | Workflow only      |
+
+`TODO.md` entries use `<!-- todo:NUMBER -->` markers. When the linked GitHub Issue is closed, the `todo-sync` workflow automatically removes the entry.
 
 ## Customization
 

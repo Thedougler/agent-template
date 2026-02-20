@@ -2,9 +2,15 @@
 
 <!-- Brief summary of what this PR does -->
 
+## Related Spec
+
+<!-- Link to the spec this PR implements (e.g., SPEC-001). -->
+
+- Spec: SPEC-
+
 ## Related Issues
 
-<!-- Link to issues or specs. Use "Closes #123" to auto-close. -->
+<!-- Link to issues. Use "Closes #123" to auto-close. -->
 
 - Closes #
 
@@ -19,7 +25,7 @@
 
 ## Changes Made
 
-## <!-- List the key changes -->
+<!-- List the key changes -->
 
 ## How to Test
 

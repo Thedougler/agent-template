@@ -12,13 +12,15 @@ A **repository template** that turns GitHub Copilot into a self-improving, spec-
 
 ## Table of Contents
 
-- [Highlights](#highlights)
-- [Quick Start](#quick-start)
-- [How It Works](#how-it-works)
-- [Repository Structure](#repository-structure)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [License](#license)
+- [Agentic Coding Template](#agentic-coding-template)
+  - [Table of Contents](#table-of-contents)
+  - [Highlights](#highlights)
+  - [Quick Start](#quick-start)
+  - [How It Works](#how-it-works)
+  - [Repository Structure](#repository-structure)
+  - [Documentation](#documentation)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## Highlights
 
@@ -63,8 +65,8 @@ This creates a **continuous improvement flywheel**: every task also improves the
 │   ├── copilot-instructions.md   # Agent identity, protocol, conventions
 │   ├── agents/                   # 3 specialized agents
 │   ├── skills/                   # 50+ reusable AI capability modules
-│   ├── workflows/                # CI, label sync, auto-label, releases
-│   └── ISSUE_TEMPLATE/           # Bug, feature, task templates
+│   ├── workflows/                # CI, label sync, auto-label, releases, changelog
+│   └── ISSUE_TEMPLATE/           # Bug, feature, task templates (YAML forms)
 ├── app/                          # Your application code
 ├── data/                         # Data files
 ├── docs/                         # Documentation
@@ -74,6 +76,9 @@ This creates a **continuous improvement flywheel**: every task also improves the
 ├── tasks/                        # Implementation task breakdowns
 ├── tests/                        # Test suites
 ├── run.sh                        # Main entry point
+├── ROADMAP.md                    # Milestones and strategic goals
+├── TODO.md                       # Lightweight backlog
+├── CHANGELOG.md                  # Auto-generated release history
 └── SPEC.md                       # Project-level specification
 ```
 
@@ -83,6 +88,9 @@ This creates a **continuous improvement flywheel**: every task also improves the
 | ----------------------------------------- | -------------------------------------------------------------- |
 | **[Full Documentation](docs/README.md)**  | Architecture, agents, scripts, and the agentic loop            |
 | **[Features & Skills](docs/Features.md)** | Complete breakdown of all 50+ skills, agents, and capabilities |
+| **[Roadmap](ROADMAP.md)**                 | Milestones and strategic goals for agents and humans           |
+| **[TODO](TODO.md)**                       | Lightweight backlog — agents add items, humans prioritize      |
+| **[Changelog](CHANGELOG.md)**             | Auto-generated release history from Conventional Commits       |
 | **[Contributing](CONTRIBUTING.md)**       | SPEC-driven development workflow and contribution guide        |
 | **[Project Spec](SPEC.md)**               | Project-level specification and acceptance criteria            |
 | **[Security](SECURITY.md)**               | Security policy                                                |

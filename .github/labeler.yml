@@ -3,28 +3,52 @@
 
 spec:
   - changed-files:
-      - any-glob-to-any-file: 'specs/**'
+      - any-glob-to-any-file: "specs/**"
 
 task:
   - changed-files:
-      - any-glob-to-any-file: 'tasks/**'
+      - any-glob-to-any-file: "tasks/**"
 
 ci:
   - changed-files:
-      - any-glob-to-any-file: '.github/workflows/**'
+      - any-glob-to-any-file: ".github/workflows/**"
 
 documentation:
   - changed-files:
       - any-glob-to-any-file:
-          - 'docs/**'
-          - '*.md'
-          - '!specs/**'
-          - '!tasks/**'
+          - "docs/**"
+          - "*.md"
+          - "!specs/**"
+          - "!tasks/**"
 
 agent:
   - changed-files:
-      - any-glob-to-any-file: '.github/agents/**'
+      - any-glob-to-any-file: ".github/agents/**"
 
 skill:
   - changed-files:
-      - any-glob-to-any-file: '.github/skills/**'
+      - any-glob-to-any-file: ".github/skills/**"
+
+app:
+  - changed-files:
+      - any-glob-to-any-file: "app/**"
+
+scripts:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "scripts/**"
+          - "run.sh"
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file: "tests/**"
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "package.json"
+          - "package-lock.json"
+          - "pyproject.toml"
+          - "uv.lock"
+          - "requirements*.txt"
+          - ".pre-commit-config.yaml"

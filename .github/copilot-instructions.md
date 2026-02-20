@@ -141,6 +141,25 @@ Primary development methodology:
 - **No secrets in code** — use `.env` (auto-created from `.env.example`)
 - **Scripts must stay functional** — if one breaks, fixing it is the top priority
 
+## Tracking Files
+
+- **`ROADMAP.md`** — Milestones and strategic goals. Read the Current Milestone for project direction. Don't read Completed milestones unless asked.
+- **`TODO.md`** — Active tasks linked to GitHub Issues with acceptance criteria. Entries are auto-removed by the `todo-sync` workflow when the linked issue is closed. Agents MAY add items during self-reflection (Step 1):
+  1. Create a GitHub Issue first
+  2. Add an entry between `<!-- todo-start -->` and `<!-- todo-end -->` using this format:
+
+  ```markdown
+  <!-- todo:NUMBER -->
+  ### #NUMBER — Title
+
+  **Status**: Not Started | **Priority**: high | **Effort**: small
+
+  - [ ] Acceptance criterion 1
+  - [ ] Acceptance criterion 2
+  ```
+
+- **`CHANGELOG.md`** — Auto-generated from Conventional Commits on release. **Never edit manually.**
+
 ## Self-Optimization Principles
 
 - **Scripts that fail get fixed immediately**, not worked around.

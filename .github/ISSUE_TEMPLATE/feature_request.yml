@@ -1,0 +1,81 @@
+name: Feature Request
+description: Suggest a new feature or enhancement
+title: "[Feature] "
+labels: [feature]
+body:
+  - type: textarea
+    id: intent
+    attributes:
+      label: User Intent
+      description: What problem does this solve? Who benefits?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the desired behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: List specific functional requirements.
+      value: |
+        1.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Testable conditions that prove this feature is done.
+      value: |
+        - [ ]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - Low — nice to have
+        - Medium — should be addressed
+        - High — must be addressed soon
+    validations:
+      required: true
+
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Estimated Effort
+      options:
+        - Small — less than 2 hours
+        - Medium — 2-8 hours
+        - Large — more than 8 hours
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any other approaches you thought about.
+
+  - type: input
+    id: related_spec
+    attributes:
+      label: Related Spec
+      description: "Link to an existing spec if applicable."
+      placeholder: "SPEC-001"
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Mockups, examples, or references.

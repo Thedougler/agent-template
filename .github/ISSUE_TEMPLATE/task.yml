@@ -1,0 +1,62 @@
+name: Task
+description: A specific implementation task linked to a spec
+title: "[Task] "
+labels: [task]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Brief description of the work to be done.
+    validations:
+      required: true
+
+  - type: input
+    id: related_spec
+    attributes:
+      label: Related Spec
+      description: "The parent spec this task implements."
+      placeholder: "SPEC-001"
+    validations:
+      required: true
+
+  - type: input
+    id: related_issue
+    attributes:
+      label: Related Issue
+      description: "Link to a parent issue if applicable."
+      placeholder: "#123"
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Implementation Details
+      description: Constraints, approach, or technical notes.
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Conditions that prove this task is complete.
+      value: |
+        - [ ]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Estimated Effort
+      options:
+        - Small — less than 2 hours
+        - Medium — 2-8 hours
+        - Large — more than 8 hours
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Other tasks or issues that must be completed first.
+      placeholder: "None"

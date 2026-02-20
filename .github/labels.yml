@@ -72,6 +72,23 @@
   color: "bfd4f2"
   description: "Assigned to janitor agent"
 
+# --- Auto-Label ---
+- name: agent
+  color: "e6ccb3"
+  description: "Changes to agent definitions"
+- name: skill
+  color: "c2e0c6"
+  description: "Changes to skill modules"
+- name: app
+  color: "1d76db"
+  description: "Application code changes"
+- name: scripts
+  color: "e4e669"
+  description: "Script changes"
+- name: tests
+  color: "0e8a16"
+  description: "Test changes"
+
 # --- Status ---
 - name: "status:blocked"
   color: "b60205"

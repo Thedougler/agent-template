@@ -1,0 +1,70 @@
+name: TODO Sync
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  remove-closed:
+    name: Remove Closed Issue from TODO
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Remove closed issue entry
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          FILE="TODO.md"
+          if [ ! -f "$FILE" ]; then
+            echo "TODO.md not found — skipping"
+            exit 0
+          fi
+
+          MARKER="<!-- todo:${ISSUE_NUMBER} -->"
+          if ! grep -qF "$MARKER" "$FILE"; then
+            echo "No entry for #${ISSUE_NUMBER} in TODO.md — nothing to remove"
+            exit 0
+          fi
+
+          # Remove the block: from the marker line to the next marker or todo-end
+          python3 - "$FILE" "$MARKER" <<'PYEOF'
+          import sys, re
+
+          file_path = sys.argv[1]
+          marker = sys.argv[2]
+
+          with open(file_path, 'r') as f:
+              content = f.read()
+
+          # Match from the marker through all content until the next <!-- todo: or <!-- todo-end -->
+          # Include any blank lines after the block
+          pattern = re.escape(marker) + r'.*?(?=<!-- todo:|\s*<!-- todo-end -->)'
+          result = re.sub(pattern, '', content, count=1, flags=re.DOTALL)
+
+          # Clean up any resulting double blank lines
+          result = re.sub(r'\n{3,}', '\n\n', result)
+
+          with open(file_path, 'w') as f:
+              f.write(result)
+
+          print(f"Removed entry for issue {marker}")
+          PYEOF
+
+      - name: Commit and push
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add TODO.md
+          git diff --cached --quiet && exit 0
+          git commit -m "chore(todo): remove closed issue #${ISSUE_NUMBER} from TODO.md"
+          git push origin main

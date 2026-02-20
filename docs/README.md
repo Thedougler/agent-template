@@ -91,3 +91,11 @@ The methodology that keeps the agent aligned with intent:
 6. **PR** — Link spec/issue, list tasks, include test results
 
 See [CONTRIBUTING](../CONTRIBUTING.md) for the full workflow.
+
+### Tracking Files
+
+| File           | Purpose                                         | Automation                              |
+| -------------- | ----------------------------------------------- | --------------------------------------- |
+| `ROADMAP.md`   | Milestones and strategic goals                  | Manual                                  |
+| `TODO.md`      | Active tasks linked to GitHub Issues            | `todo-sync` removes closed-issue items  |
+| `CHANGELOG.md` | Release history from Conventional Commits       | `changelog` workflow generates on tags  |
