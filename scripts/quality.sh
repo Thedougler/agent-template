@@ -14,6 +14,15 @@ echo ""
 echo "═══ Linting ═══"
 bash scripts/lint.sh || EXIT_CODE=$?
 
+# ── Smoke tests (always run — validates template integrity) ──────
+echo ""
+echo "═══ Smoke Tests ═══"
+if [ -f tests/test_scripts.sh ]; then
+  bash tests/test_scripts.sh || EXIT_CODE=$?
+else
+  echo "⚠️  tests/test_scripts.sh not found — skipping smoke tests"
+fi
+
 # ── Tests (auto-detect test runner) ──────────────────────────────
 echo ""
 echo "═══ Tests ═══"

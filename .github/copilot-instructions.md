@@ -14,16 +14,43 @@ Finish the work the user actually asked for. Do not proceed to self-eval until t
 
 ### Step 1 — Agentic Self-Reflection & Improvement
 
-After completing the task, critically evaluate your own work and the state of the project:
+After completing the task, **stop and walk through each question below**. Answer honestly. If any answer is "yes," implement the fix before moving to Step 2.
 
-- **Scripts**: Did any script behave unexpectedly? Fix it immediately — working scripts are non-negotiable.
-- **Prompt/instruction files**: Were any too short, vague, or missing context that caused you to guess? Expand them with the specifics you had to infer.
-- **Agent/skill instructions**: Were any too verbose, causing you to lose focus or waste tokens? Condense them without losing essential detail.
-- **Code quality**: Should linting rules, formatters, or pre-commit hooks be added or tightened based on issues you encountered?
-- **Test coverage**: Are there untested paths you touched? Add explicit tests or note the gap in a TODO.
-- **Documentation**: Does anything you just built lack clear docs for the next agent or human?
+#### 1.1 Scripts
 
-Implement fixes and improvements discovered during self-eval before moving to Step 2.
+> Did any script fail, produce unexpected output, or require a workaround?
+
+Fix it immediately. Working scripts are non-negotiable. Do not proceed until every script in `scripts/` exits clean.
+
+#### 1.2 Prompts & Instructions
+
+> Did you have to guess or infer something that should have been explicit in `copilot-instructions.md`, a spec, or a task file?
+
+Expand the file with the specifics you inferred. The next agent (or your next invocation) should not have to guess the same thing.
+
+#### 1.3 Verbosity Check
+
+> Did any instruction file, skill, or prompt cause you to lose focus or spend tokens on irrelevant detail?
+
+Condense it. Preserve the essential rules; remove examples, padding, and repetition. Dense instructions outperform verbose ones.
+
+#### 1.4 Code Quality Tooling
+
+> Did you encounter a class of issue that a linter, formatter, or pre-commit hook could catch automatically?
+
+Add or tighten the rule. Manual checking is a sign of missing automation.
+
+#### 1.5 Test Coverage
+
+> Did you change or create code that has no tests?
+
+Add tests or document the gap as a TODO with a clear description of what needs coverage.
+
+#### 1.6 Documentation
+
+> Would another agent or human struggle to understand what you just built?
+
+Add docs — inline comments for complex logic, README updates for new features, spec updates for changed requirements.
 
 ### Step 2 — Commit & Clean
 
