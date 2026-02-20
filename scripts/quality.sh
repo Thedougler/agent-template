@@ -37,6 +37,18 @@ else
   echo "   Add tests/ with pytest, or a test script in package.json"
 fi
 
+# ── Path consistency check ───────────────────────────────────────
+echo ""
+echo "═══ Path Consistency ═══"
+BAD_PATHS=$(grep -r '\.claude/skills/' .github/skills/ 2>/dev/null || true)
+if [ -n "$BAD_PATHS" ]; then
+  echo "❌ Found .claude/skills/ references that should be .github/skills/:"
+  echo "$BAD_PATHS"
+  EXIT_CODE=1
+else
+  echo "✅ No stale .claude/skills/ references in .github/skills/"
+fi
+
 echo ""
 if [ $EXIT_CODE -eq 0 ]; then
   echo "🎉 All quality checks passed!"

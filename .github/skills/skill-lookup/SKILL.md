@@ -71,3 +71,4 @@ When the user asks to install a skill:
 - Present search results in a readable format with file counts
 - When installing, confirm the skill was saved successfully
 - Explain what the skill does and when it activates
+- If `search_skills` or `get_skill` MCP tools are unavailable (no prompts.chat MCP server configured), inform the user and suggest creating a skill manually using the `make-skill-template` skill instead
