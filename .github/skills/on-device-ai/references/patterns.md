@@ -10,11 +10,11 @@ Running HuggingFace models in browser
   #### **Implementation**
     // Transformers.js with WebGPU acceleration
     import { pipeline, env } from "@huggingface/transformers";
-    
+
     // Configure for browser
     env.useBrowserCache = true;
     env.allowLocalModels = false;
-    
+
     // Check WebGPU support
     async function checkWebGPUSupport(): Promise<{
       supported: boolean;
@@ -24,20 +24,20 @@ Running HuggingFace models in browser
       if (!("gpu" in navigator)) {
         return { supported: false };
       }
-    
+
       try {
         const adapter = await navigator.gpu.requestAdapter();
         if (!adapter) {
           return { supported: false };
         }
-    
+
         const device = await adapter.requestDevice();
         return { supported: true, adapter, device };
       } catch {
         return { supported: false };
       }
     }
-    
+
     // Initialize pipeline with WebGPU
     async function createPipeline<T extends "text-generation" | "feature-extraction" | "sentiment-analysis">(
       task: T,
@@ -49,18 +49,18 @@ Running HuggingFace models in browser
       }
     ) {
       const webgpu = await checkWebGPUSupport();
-    
+
       const config = {
         dtype: options?.dtype ?? (webgpu.supported ? "q4" : "q8"),
         device: webgpu.supported ? "webgpu" : "wasm",
         progress_callback: options?.onProgress,
       };
-    
+
       console.log(`Using ${config.device} backend with ${config.dtype} precision`);
-    
+
       return pipeline(task, model, config);
     }
-    
+
     // Text generation example
     async function generateText(prompt: string): Promise<string> {
       const generator = await createPipeline(
@@ -73,16 +73,16 @@ Running HuggingFace models in browser
           },
         }
       );
-    
+
       const result = await generator(prompt, {
         max_new_tokens: 256,
         temperature: 0.7,
         do_sample: true,
       });
-    
+
       return result[0].generated_text;
     }
-    
+
     // Embeddings for semantic search
     async function getEmbeddings(texts: string[]): Promise<Float32Array[]> {
       const extractor = await createPipeline(
@@ -90,9 +90,9 @@ Running HuggingFace models in browser
         "Xenova/all-MiniLM-L6-v2",
         { dtype: "fp32" }
       );
-    
+
       const embeddings: Float32Array[] = [];
-    
+
       for (const text of texts) {
         const result = await extractor(text, {
           pooling: "mean",
@@ -100,10 +100,10 @@ Running HuggingFace models in browser
         });
         embeddings.push(result.data);
       }
-    
+
       return embeddings;
     }
-    
+
 ### **Webllm Chat**
   #### **Description**
 Run LLMs in browser with WebLLM
@@ -111,17 +111,17 @@ Run LLMs in browser with WebLLM
 Need conversational AI without API calls
   #### **Implementation**
     import * as webllm from "@mlc-ai/web-llm";
-    
+
     interface ChatMessage {
       role: "system" | "user" | "assistant";
       content: string;
     }
-    
+
     class BrowserChatEngine {
       private engine: webllm.MLCEngine | null = null;
       private isLoading = false;
       private loadProgress = 0;
-    
+
       // Available models (sorted by size)
       static MODELS = {
         small: "Llama-3.2-1B-Instruct-q4f16_1-MLC",
@@ -129,26 +129,26 @@ Need conversational AI without API calls
         large: "Phi-3.5-mini-instruct-q4f16_1-MLC",
         vision: "Llama-3.2-11B-Vision-Instruct-q4f16_1-MLC",
       };
-    
+
       async initialize(
         model: keyof typeof BrowserChatEngine.MODELS = "small",
         onProgress?: (progress: number, status: string) => void
       ): Promise<void> {
         if (this.engine || this.isLoading) return;
         this.isLoading = true;
-    
+
         const modelId = BrowserChatEngine.MODELS[model];
-    
+
         this.engine = await webllm.CreateMLCEngine(modelId, {
           initProgressCallback: (report) => {
             this.loadProgress = report.progress;
             onProgress?.(report.progress, report.text);
           },
         });
-    
+
         this.isLoading = false;
       }
-    
+
       async chat(
         messages: ChatMessage[],
         options?: {
@@ -161,62 +161,62 @@ Need conversational AI without API calls
         if (!this.engine) {
           throw new Error("Engine not initialized. Call initialize() first.");
         }
-    
+
         const { temperature = 0.7, maxTokens = 512, stream = false, onToken } = options ?? {};
-    
+
         if (stream && onToken) {
           // Streaming response
           let fullResponse = "";
-    
+
           const asyncGenerator = await this.engine.chat.completions.create({
             messages,
             temperature,
             max_tokens: maxTokens,
             stream: true,
           });
-    
+
           for await (const chunk of asyncGenerator) {
             const delta = chunk.choices[0]?.delta?.content ?? "";
             fullResponse += delta;
             onToken(delta);
           }
-    
+
           return fullResponse;
         }
-    
+
         // Non-streaming
         const response = await this.engine.chat.completions.create({
           messages,
           temperature,
           max_tokens: maxTokens,
         });
-    
+
         return response.choices[0].message.content ?? "";
       }
-    
+
       async unload(): Promise<void> {
         if (this.engine) {
           await this.engine.unload();
           this.engine = null;
         }
       }
-    
+
       getProgress(): number {
         return this.loadProgress;
       }
-    
+
       isReady(): boolean {
         return this.engine !== null && !this.isLoading;
       }
     }
-    
+
     // React hook
     function useBrowserChat(model: keyof typeof BrowserChatEngine.MODELS = "small") {
       const [engine] = useState(() => new BrowserChatEngine());
       const [loading, setLoading] = useState(false);
       const [progress, setProgress] = useState(0);
       const [ready, setReady] = useState(false);
-    
+
       useEffect(() => {
         setLoading(true);
         engine.initialize(model, (p, status) => {
@@ -225,20 +225,20 @@ Need conversational AI without API calls
           setReady(true);
           setLoading(false);
         });
-    
+
         return () => {
           engine.unload();
         };
       }, [model]);
-    
+
       const chat = useCallback(async (messages: ChatMessage[]) => {
         if (!ready) throw new Error("Not ready");
         return engine.chat(messages);
       }, [engine, ready]);
-    
+
       return { chat, loading, progress, ready };
     }
-    
+
 ### **Onnx Runtime Inference**
   #### **Description**
 Run ONNX models with WebGPU
@@ -246,7 +246,7 @@ Run ONNX models with WebGPU
 Using custom or fine-tuned models
   #### **Implementation**
     import * as ort from "onnxruntime-web";
-    
+
     // Configure ONNX Runtime for WebGPU
     async function setupONNXRuntime(): Promise<void> {
       // Check WebGPU availability
@@ -254,48 +254,48 @@ Using custom or fine-tuned models
         ort.env.wasm.numThreads = navigator.hardwareConcurrency;
         ort.env.webgpu.powerPreference = "high-performance";
       }
-    
+
       // Set WASM paths
       ort.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/";
     }
-    
+
     interface ModelConfig {
       modelPath: string;
       executionProvider: "webgpu" | "wasm" | "webgl";
       inputNames: string[];
       outputNames: string[];
     }
-    
+
     class ONNXInferenceEngine {
       private session: ort.InferenceSession | null = null;
       private config: ModelConfig;
-    
+
       constructor(config: ModelConfig) {
         this.config = config;
       }
-    
+
       async load(): Promise<void> {
         await setupONNXRuntime();
-    
+
         const options: ort.InferenceSession.SessionOptions = {
           executionProviders: [this.config.executionProvider],
           graphOptimizationLevel: "all",
         };
-    
+
         this.session = await ort.InferenceSession.create(
           this.config.modelPath,
           options
         );
       }
-    
+
       async run(inputs: Record<string, ort.Tensor>): Promise<Record<string, ort.Tensor>> {
         if (!this.session) {
           throw new Error("Session not loaded");
         }
-    
+
         return await this.session.run(inputs);
       }
-    
+
       async dispose(): Promise<void> {
         if (this.session) {
           await this.session.release();
@@ -303,7 +303,7 @@ Using custom or fine-tuned models
         }
       }
     }
-    
+
     // Example: Text classification with ONNX
     async function classifyText(text: string): Promise<{ label: string; score: number }[]> {
       const tokenizer = await AutoTokenizer.from_pretrained("Xenova/bert-base-uncased");
@@ -312,42 +312,42 @@ Using custom or fine-tuned models
         truncation: true,
         max_length: 128,
       });
-    
+
       const engine = new ONNXInferenceEngine({
         modelPath: "/models/classifier.onnx",
         executionProvider: "webgpu",
         inputNames: ["input_ids", "attention_mask"],
         outputNames: ["logits"],
       });
-    
+
       await engine.load();
-    
+
       const inputIds = new ort.Tensor("int64", encoded.input_ids.data, encoded.input_ids.dims);
       const attentionMask = new ort.Tensor("int64", encoded.attention_mask.data, encoded.attention_mask.dims);
-    
+
       const outputs = await engine.run({
         input_ids: inputIds,
         attention_mask: attentionMask,
       });
-    
+
       const logits = outputs.logits.data as Float32Array;
       const probs = softmax(Array.from(logits));
-    
+
       await engine.dispose();
-    
+
       return probs.map((score, idx) => ({
         label: LABELS[idx],
         score,
       })).sort((a, b) => b.score - a.score);
     }
-    
+
     function softmax(arr: number[]): number[] {
       const max = Math.max(...arr);
       const exp = arr.map((x) => Math.exp(x - max));
       const sum = exp.reduce((a, b) => a + b, 0);
       return exp.map((x) => x / sum);
     }
-    
+
 ### **Local Rag Pipeline**
   #### **Description**
 Build RAG entirely in browser
@@ -356,18 +356,18 @@ Need retrieval without server calls
   #### **Implementation**
     import { pipeline } from "@huggingface/transformers";
     import * as webllm from "@mlc-ai/web-llm";
-    
+
     interface Document {
       id: string;
       content: string;
       embedding?: Float32Array;
     }
-    
+
     class BrowserRAG {
       private embedder: Awaited<ReturnType<typeof pipeline>> | null = null;
       private llm: webllm.MLCEngine | null = null;
       private documents: Document[] = [];
-    
+
       async initialize(
         onProgress?: (stage: string, progress: number) => void
       ): Promise<void> {
@@ -382,7 +382,7 @@ Need retrieval without server calls
             progress_callback: (p) => onProgress?.("embedder", p.progress),
           }
         );
-    
+
         // Load LLM
         onProgress?.("llm", 0);
         this.llm = await webllm.CreateMLCEngine(
@@ -392,10 +392,10 @@ Need retrieval without server calls
           }
         );
       }
-    
+
       async addDocuments(docs: Array<{ id: string; content: string }>): Promise<void> {
         if (!this.embedder) throw new Error("Not initialized");
-    
+
         for (const doc of docs) {
           const embedding = await this.embed(doc.content);
           this.documents.push({
@@ -405,32 +405,32 @@ Need retrieval without server calls
           });
         }
       }
-    
+
       async query(
         question: string,
         options?: { topK?: number; stream?: boolean; onToken?: (token: string) => void }
       ): Promise<string> {
         const { topK = 3, stream = false, onToken } = options ?? {};
-    
+
         if (!this.embedder || !this.llm) throw new Error("Not initialized");
-    
+
         // Get question embedding
         const queryEmbedding = await this.embed(question);
-    
+
         // Find similar documents
         const scored = this.documents.map((doc) => ({
           doc,
           score: this.cosineSimilarity(queryEmbedding, doc.embedding!),
         }));
-    
+
         scored.sort((a, b) => b.score - a.score);
         const topDocs = scored.slice(0, topK);
-    
+
         // Build context
         const context = topDocs
           .map((s) => s.doc.content)
           .join("\n\n---\n\n");
-    
+
         // Generate answer
         const messages = [
           {
@@ -442,7 +442,7 @@ Need retrieval without server calls
             content: `Context:\n${context}\n\nQuestion: ${question}`,
           },
         ];
-    
+
         if (stream && onToken) {
           let response = "";
           const chunks = await this.llm.chat.completions.create({
@@ -450,24 +450,24 @@ Need retrieval without server calls
             stream: true,
             max_tokens: 256,
           });
-    
+
           for await (const chunk of chunks) {
             const delta = chunk.choices[0]?.delta?.content ?? "";
             response += delta;
             onToken(delta);
           }
-    
+
           return response;
         }
-    
+
         const result = await this.llm.chat.completions.create({
           messages,
           max_tokens: 256,
         });
-    
+
         return result.choices[0].message.content ?? "";
       }
-    
+
       private async embed(text: string): Promise<Float32Array> {
         const result = await this.embedder!(text, {
           pooling: "mean",
@@ -475,22 +475,22 @@ Need retrieval without server calls
         });
         return result.data as Float32Array;
       }
-    
+
       private cosineSimilarity(a: Float32Array, b: Float32Array): number {
         let dot = 0;
         let normA = 0;
         let normB = 0;
-    
+
         for (let i = 0; i < a.length; i++) {
           dot += a[i] * b[i];
           normA += a[i] * a[i];
           normB += b[i] * b[i];
         }
-    
+
         return dot / (Math.sqrt(normA) * Math.sqrt(normB));
       }
     }
-    
+
 ### **Model Caching**
   #### **Description**
 Cache models for fast subsequent loads
@@ -499,30 +499,30 @@ Optimizing repeat visits
   #### **Implementation**
     // Models are automatically cached in browser storage
     // but we can optimize with preloading and cache management
-    
+
     import { env } from "@huggingface/transformers";
-    
+
     // Enable browser caching
     env.useBrowserCache = true;
     env.cacheDir = "transformers-cache";
-    
+
     interface CacheInfo {
       modelId: string;
       size: number;
       lastAccessed: Date;
     }
-    
+
     async function getCacheInfo(): Promise<CacheInfo[]> {
       const cacheInfo: CacheInfo[] = [];
-    
+
       if ("caches" in window) {
         const cacheNames = await caches.keys();
-    
+
         for (const name of cacheNames) {
           if (name.includes("transformers") || name.includes("onnx")) {
             const cache = await caches.open(name);
             const keys = await cache.keys();
-    
+
             let totalSize = 0;
             for (const request of keys) {
               const response = await cache.match(request);
@@ -531,7 +531,7 @@ Optimizing repeat visits
                 totalSize += blob.size;
               }
             }
-    
+
             cacheInfo.push({
               modelId: name,
               size: totalSize,
@@ -540,21 +540,21 @@ Optimizing repeat visits
           }
         }
       }
-    
+
       return cacheInfo;
     }
-    
+
     async function clearModelCache(modelId?: string): Promise<void> {
       if ("caches" in window) {
         const cacheNames = await caches.keys();
-    
+
         for (const name of cacheNames) {
           if (!modelId || name.includes(modelId)) {
             await caches.delete(name);
           }
         }
       }
-    
+
       // Also clear IndexedDB if used
       if ("indexedDB" in window) {
         const databases = await indexedDB.databases();
@@ -565,7 +565,7 @@ Optimizing repeat visits
         }
       }
     }
-    
+
     // Preload models in background
     async function preloadModels(
       models: string[],
@@ -583,7 +583,7 @@ Optimizing repeat visits
         }
       }
     }
-    
+
     // Service worker for offline support
     const SW_SCRIPT = `
       self.addEventListener('fetch', (event) => {
@@ -603,7 +603,7 @@ Optimizing repeat visits
         }
       });
     `;
-    
+
 ### **React Integration**
   #### **Description**
 React hooks for on-device AI
@@ -612,13 +612,13 @@ Building React apps with local inference
   #### **Implementation**
     import { useState, useEffect, useCallback, useRef } from "react";
     import { pipeline } from "@huggingface/transformers";
-    
+
     interface UseModelOptions {
       device?: "webgpu" | "wasm";
       dtype?: "fp32" | "fp16" | "q8" | "q4";
       onProgress?: (progress: number) => void;
     }
-    
+
     interface UseModelResult<T> {
       model: T | null;
       loading: boolean;
@@ -626,7 +626,7 @@ Building React apps with local inference
       error: Error | null;
       ready: boolean;
     }
-    
+
     function useModel<T>(
       task: string,
       modelId: string,
@@ -636,15 +636,15 @@ Building React apps with local inference
       const [loading, setLoading] = useState(true);
       const [progress, setProgress] = useState(0);
       const [error, setError] = useState<Error | null>(null);
-    
+
       useEffect(() => {
         let cancelled = false;
-    
+
         async function loadModel() {
           try {
             setLoading(true);
             setError(null);
-    
+
             const pipe = await pipeline(task, modelId, {
               device: options?.device ?? "webgpu",
               dtype: options?.dtype ?? "q4",
@@ -655,7 +655,7 @@ Building React apps with local inference
                 }
               },
             });
-    
+
             if (!cancelled) {
               setModel(pipe as T);
               setLoading(false);
@@ -667,14 +667,14 @@ Building React apps with local inference
             }
           }
         }
-    
+
         loadModel();
-    
+
         return () => {
           cancelled = true;
         };
       }, [task, modelId, options?.device, options?.dtype]);
-    
+
       return {
         model,
         loading,
@@ -683,39 +683,39 @@ Building React apps with local inference
         ready: model !== null && !loading,
       };
     }
-    
+
     // Specialized hooks
     function useTextGeneration(modelId: string = "Xenova/Phi-3-mini-4k-instruct") {
       const result = useModel("text-generation", modelId, { dtype: "q4" });
-    
+
       const generate = useCallback(
         async (prompt: string, options?: { maxTokens?: number; temperature?: number }) => {
           if (!result.model) throw new Error("Model not loaded");
-    
+
           const output = await (result.model as any)(prompt, {
             max_new_tokens: options?.maxTokens ?? 256,
             temperature: options?.temperature ?? 0.7,
             do_sample: true,
           });
-    
+
           return output[0].generated_text;
         },
         [result.model]
       );
-    
+
       return { ...result, generate };
     }
-    
+
     function useEmbeddings(modelId: string = "Xenova/all-MiniLM-L6-v2") {
       const result = useModel("feature-extraction", modelId, { dtype: "fp32" });
-    
+
       const embed = useCallback(
         async (texts: string | string[]) => {
           if (!result.model) throw new Error("Model not loaded");
-    
+
           const input = Array.isArray(texts) ? texts : [texts];
           const embeddings: Float32Array[] = [];
-    
+
           for (const text of input) {
             const output = await (result.model as any)(text, {
               pooling: "mean",
@@ -723,18 +723,18 @@ Building React apps with local inference
             });
             embeddings.push(output.data);
           }
-    
+
           return embeddings;
         },
         [result.model]
       );
-    
+
       return { ...result, embed };
     }
-    
+
     function useSentiment(modelId: string = "Xenova/distilbert-base-uncased-finetuned-sst-2-english") {
       const result = useModel("sentiment-analysis", modelId);
-    
+
       const analyze = useCallback(
         async (text: string) => {
           if (!result.model) throw new Error("Model not loaded");
@@ -742,20 +742,20 @@ Building React apps with local inference
         },
         [result.model]
       );
-    
+
       return { ...result, analyze };
     }
-    
+
     // Example component
     function ChatInterface() {
       const { generate, loading, progress, ready } = useTextGeneration();
       const [input, setInput] = useState("");
       const [output, setOutput] = useState("");
       const [generating, setGenerating] = useState(false);
-    
+
       const handleSubmit = async () => {
         if (!ready || generating) return;
-    
+
         setGenerating(true);
         try {
           const response = await generate(input);
@@ -764,11 +764,11 @@ Building React apps with local inference
           setGenerating(false);
         }
       };
-    
+
       if (loading) {
         return <div>Loading model... {(progress * 100).toFixed(0)}%</div>;
       }
-    
+
       return (
         <div>
           <textarea value={input} onChange={(e) => setInput(e.target.value)} />
@@ -779,7 +779,7 @@ Building React apps with local inference
         </div>
       );
     }
-    
+
 
 ## Anti-Patterns
 

@@ -2,17 +2,26 @@
 
 Thank you for contributing! This project follows a SPEC-driven development workflow using GitHub Copilot custom agents.
 
-## 🎯 Quick Start
+## Quick Start
 
 1. Find or create an issue describing what you want to work on
 2. Create a spec from the issue (or reference an existing spec)
-3. Break the spec into tasks (use plan-agent)
-4. Implement tasks (use implement-agent)
-5. Test your implementation (use test-agent)
-6. Get a review (use review-agent)
-7. Submit a PR linking the spec and tasks
+3. Break the spec into tasks
+4. Implement tasks one at a time with atomic commits
+5. Test your implementation against acceptance criteria
+6. Submit a PR linking the spec and tasks
 
-## 📋 Creating a Spec
+## Available Agents
+
+These agents handle focused tasks via `runSubagent` delegation:
+
+| Agent | Purpose | Usage |
+|-------|---------|-------|
+| **@Context7-Expert** | Live library documentation lookup | `@context7 How does X work in library Y?` |
+| **@Universal Janitor** | Tech debt elimination, dead code removal | `@janitor Clean up unused dependencies` |
+| **@Playwright Tester** | E2E test generation and execution | `@playwright-tester Test the login flow` |
+
+## Creating a Spec
 
 ### From a GitHub Issue
 
@@ -49,32 +58,22 @@ Thank you for contributing! This project follows a SPEC-driven development workf
 3. **Link to an issue**:
    Create a GitHub issue and reference the spec file
 
-## 🔨 Implementation Workflow
+## Implementation Workflow
 
-### 1. Plan Tasks (plan-agent)
+### 1. Plan Tasks
 
-Use the plan-agent to break down your spec:
+Break your spec into implementable tasks:
 
-```
-@plan-agent Read SPEC-001 and create implementation tasks
-```
-
-The agent will:
 - Analyze the spec requirements
 - Identify logical task boundaries
-- Create task files in `tasks/`
-- Document dependencies
-- Estimate effort
+- Create task files in `tasks/` using `tasks/TASK_TEMPLATE.md`
+- Document dependencies between tasks
+- Estimate effort (Small / Medium / Large)
 
-### 2. Implement Code (implement-agent)
+### 2. Implement Code
 
 Work on one task at a time:
 
-```
-@implement-agent Implement TASK-001-1 following the spec requirements
-```
-
-The agent will:
 - Read the spec and task file
 - Understand acceptance criteria
 - Write focused, minimal code
@@ -83,51 +82,33 @@ The agent will:
 
 #### Best Practices
 
-- **One task at a time** - stay focused
-- **Commit often** - small, atomic commits
-- **Reference task IDs** - in commit messages
-- **Update task status** - as you progress
-- **Follow conventions** - match existing code style
+- **One task at a time** — stay focused
+- **Commit often** — small, atomic commits
+- **Reference task IDs** — in commit messages
+- **Update task status** — as you progress
+- **Follow conventions** — match existing code style
 
-### 3. Test Implementation (test-agent)
+### 3. Test Implementation
 
-Validate your changes:
+Validate your changes against the spec's acceptance criteria:
 
-```
-@test-agent Create tests for TASK-001-1 that verify the spec acceptance criteria
-```
-
-The agent will:
 - Create unit tests for functions
 - Create integration tests for workflows
 - Test edge cases
-- Run tests and report coverage
-- Identify untested code paths
+- Run `scripts/quality.sh` and fix any failures
+- Use **@Playwright Tester** for E2E tests when applicable
 
 #### Testing Standards
 
-- **Unit tests** - for all functions/methods
-- **Integration tests** - for component interactions
-- **Coverage target** - aim for 80%+ coverage
-- **All tests pass** - before submitting PR
-- **Fast tests** - optimize for quick feedback
+- **Unit tests** — for all functions/methods
+- **Integration tests** — for component interactions
+- **Coverage target** — aim for 80%+ coverage
+- **All tests pass** — before submitting PR
+- **Fast tests** — optimize for quick feedback
 
-### 4. Review Code (review-agent)
+### 4. Review Code
 
-Before submitting your PR:
-
-```
-@review-agent Review my changes against SPEC-001
-```
-
-The agent will:
-- Check spec compliance
-- Evaluate code quality
-- Identify security issues
-- Verify test coverage
-- Suggest improvements
-
-#### Self-Review Checklist
+Before submitting your PR, self-review against this checklist:
 
 - [ ] All acceptance criteria met
 - [ ] Tests pass and cover new code
@@ -137,22 +118,17 @@ The agent will:
 - [ ] No breaking changes (or documented)
 - [ ] Backward compatible
 
-### 5. Refactor (refactor-agent) - Optional
+### 5. Refactor (Optional)
 
-If code needs improvement:
+If code needs improvement, use the `refactor` skill or **@Universal Janitor** agent:
 
-```
-@refactor-agent Improve the code quality for TASK-001-1 while keeping tests passing
-```
-
-The agent will:
 - Identify improvement opportunities
 - Refactor incrementally
 - Maintain all functionality
 - Keep tests passing
 - Update documentation
 
-## 📤 Submitting a Pull Request
+## Submitting a Pull Request
 
 ### PR Requirements
 
@@ -193,31 +169,26 @@ Use the provided template (`.github/PULL_REQUEST_TEMPLATE.md`) which includes:
 - Acceptance criteria verification
 - Code review checklist
 
-## 🔄 Review Process
+## Review Process
 
 ### For PR Authors
 
-1. **Self-review first** - use review-agent
-2. **Address CI failures** - before requesting review
-3. **Respond to feedback** - constructively
-4. **Update based on reviews** - quickly
-5. **Request re-review** - when ready
+1. **Self-review first** — run `scripts/quality.sh` and check the self-review checklist above
+2. **Address CI failures** — before requesting review
+3. **Respond to feedback** — constructively
+4. **Update based on reviews** — quickly
+5. **Request re-review** — when ready
 
 ### For Reviewers
 
-1. **Check spec compliance** - does it match requirements?
-2. **Verify tests** - are they comprehensive?
-3. **Review code quality** - is it maintainable?
-4. **Check security** - any vulnerabilities?
-5. **Validate documentation** - is it complete?
-6. **Approve or request changes** - with clear feedback
+1. **Check spec compliance** — does it match requirements?
+2. **Verify tests** — are they comprehensive?
+3. **Review code quality** — is it maintainable?
+4. **Check security** — any vulnerabilities?
+5. **Validate documentation** — is it complete?
+6. **Approve or request changes** — with clear feedback
 
-Use review-agent to assist:
-```
-@review-agent Review PR #123 for spec compliance and code quality
-```
-
-## 🏗️ Project Structure Guidelines
+## Project Structure Guidelines
 
 ### Specs Directory (`specs/`)
 
@@ -235,25 +206,20 @@ Use review-agent to assist:
 
 ### Agent Configurations (`.github/agents/`)
 
-- **Format**: Valid JSON
-- **Required fields**: name, description, instructions
-- **Purpose**: Define agent behavior
-- **Do not modify** unless updating agent capabilities
+- **Format**: Markdown with YAML frontmatter (`.agent.md`)
+- **Available agents**: Context7-Expert, Universal Janitor, Playwright Tester
+- **Purpose**: Define specialized agent behavior and capabilities
+- **Extend carefully** — verbose agent instructions waste tokens
 
-## 🔒 Security
+## Security
 
-- **No secrets** in code or specs
+- **No secrets** in code or specs — use `.env` (auto-created from `.env.example`)
 - **Validate inputs** in all functions
 - **Handle errors** gracefully
 - **Review dependencies** for vulnerabilities
 - **Follow security best practices** for your language
 
-Use review-agent to check:
-```
-@review-agent Check for security vulnerabilities in my changes
-```
-
-## 📏 Code Standards
+## Code Standards
 
 ### General Principles
 
@@ -280,7 +246,7 @@ Use review-agent to check:
 - **Specs** for requirements
 - **Tasks** for implementation details
 
-## 🐛 Reporting Bugs
+## Reporting Bugs
 
 Use the Bug Report template:
 
@@ -290,7 +256,7 @@ Use the Bug Report template:
 4. Add relevant logs/errors
 5. Specify environment details
 
-## 💡 Suggesting Features
+## Suggesting Features
 
 Use the Feature Spec template:
 
@@ -300,7 +266,7 @@ Use the Feature Spec template:
 4. Note any constraints
 5. Identify dependencies
 
-## 🚀 Release Process
+## Release Process
 
 1. **All specs implemented** and verified
 2. **All tests passing** on main branch
@@ -309,15 +275,9 @@ Use the Feature Spec template:
 5. **Generate release notes** linking specs
 6. **Deploy** according to project needs
 
-## ❓ Questions?
+## Questions?
 
 - **Check documentation** in `specs/` and `tasks/`
 - **Search existing issues** for answers
 - **Open a discussion** for general questions
-- **Use agent help** for workflow questions
-
-## 🙏 Thank You!
-
-Your contributions make this project better. By following this SPEC-driven workflow, we maintain quality, traceability, and alignment with user needs.
-
-**Happy coding with agents! 🤖**
+- **Read `SPEC.md`** for the project-level specification

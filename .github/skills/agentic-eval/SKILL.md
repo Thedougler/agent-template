@@ -22,6 +22,7 @@ Generate → Evaluate → Critique → Refine → Output
 - **Quality-critical generation**: Code, reports, analysis requiring high accuracy
 - **Tasks with clear evaluation criteria**: Defined success metrics exist
 - **Content requiring specific standards**: Style guides, compliance, formatting
+- **Self Evaluation**: Agents can iteratively improve their own outputs, and should when asked to self evaluate or reflect on their work.
 
 ---
 

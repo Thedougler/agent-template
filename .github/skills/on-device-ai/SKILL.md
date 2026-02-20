@@ -1,6 +1,6 @@
 ---
 name: on-device-ai
-description: Patterns for running AI models locally in browsers using WebGPU, Transformers.js, WebLLM, and ONNX Runtime. Zero API costs, full privacy. Use when "on-device AI, browser AI, WebLLM, Transformers.js, WebGPU, edge inference, offline AI, client-side ML, ONNX web, " mentioned. 
+description: Patterns for running AI models locally in browsers using WebGPU, Transformers.js, WebLLM, and ONNX Runtime. Zero API costs, full privacy. Use when "on-device AI, browser AI, WebLLM, Transformers.js, WebGPU, edge inference, offline AI, client-side ML, ONNX web, " mentioned.
 ---
 
 # On Device Ai

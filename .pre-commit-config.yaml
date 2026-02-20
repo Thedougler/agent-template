@@ -1,0 +1,39 @@
+# Pre-commit hooks — https://pre-commit.com
+# Minimal config for a blank template. Add language-specific hooks as needed.
+repos:
+  # ── General checks ──────────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+        exclude: '^\.vscode/'
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+
+  # ── Shell ───────────────────────────────────────────────────────
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+
+  # ── Python (uncomment when adding Python code) ──────────────────
+  # - repo: https://github.com/astral-sh/ruff-pre-commit
+  #   rev: v0.8.6
+  #   hooks:
+  #     - id: ruff
+  #       args: [--fix]
+  #     - id: ruff-format
+
+  # ── Markdown ────────────────────────────────────────────────────
+  # - repo: https://github.com/igorshubovych/markdownlint-cli
+  #   rev: v0.43.0
+  #   hooks:
+  #     - id: markdownlint
+  #       args: ['--config', '.markdownlint.json']

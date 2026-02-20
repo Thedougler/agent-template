@@ -112,7 +112,7 @@ const OUTPUT_DIR = `assets/character-reference/{character-slug}/{collection-name
 ```javascript
 // Match narrative aesthetic
 // Alex → "professional anime illustration, detective noir"
-// Iris → "fantasy illustration, magical wonderland aesthetic"  
+// Iris → "fantasy illustration, magical wonderland aesthetic"
 // Maya → "contemporary anime illustration, slice-of-life realistic"
 ```
 

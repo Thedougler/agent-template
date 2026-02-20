@@ -1,0 +1,30 @@
+{
+  "recommendations": [
+    // Core editing
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig",
+    "foxundermoon.shell-format",
+
+    // Python
+    "charliermarsh.ruff",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+
+    // Markdown
+    "DavidAnson.vscode-markdownlint",
+    "yzhang.markdown-all-in-one",
+
+    // YAML
+    "redhat.vscode-yaml",
+
+    // Git & GitHub
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+    "GitHub.vscode-pull-request-github",
+    "eamodio.gitlens",
+
+    // Docker & Kubernetes
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
+  ]
+}

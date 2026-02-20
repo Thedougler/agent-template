@@ -1,344 +1,136 @@
-# Agent Template - SPEC-Driven Development
+# Agentic Coding Template
 
-An agentic coding repository template built around SPEC-driven development, using GitHub Copilot custom agents running locally in VS Code to plan, implement, test, review, and refactor autonomously.
+A **repository template** that turns GitHub Copilot into a self-improving, spec-driven development partner. Clone it, run it, and let the agent build your project — while continuously evaluating and improving its own work.
 
-## 🎯 Overview
+> **This is a tech demo.** It shows what's possible when you give an AI agent the right infrastructure: structured methodology, quality gates, self-reflection loops, and a curated skill library. It's also a **functional template** you can fork to start real projects immediately.
 
-This template enables a complete **SPEC-driven development workflow** where:
+## What Makes This Different
 
-- **Specs originate from user intent**, issues, or prompts
-- **Flow through tracked tasks** for implementation
-- **Iteratively self-evaluate** via tests and review agents
-- **Standard GitHub features** (issues, PRs, CI, releases) enforce traceability
-- **Autonomous agents** handle planning, implementation, testing, review, and refactoring
+| Capability | How It Works |
+|-----------|-------------|
+| **Self-Improvement** | Mandatory Completion Protocol forces the agent to self-evaluate after every task — fixing scripts, expanding vague prompts, condensing verbose instructions |
+| **SPEC-Driven Development** | Requirements and acceptance criteria are captured *before* code is written, then verified *after* |
+| **Ralph Loops** | Iterative plan → implement → test → review → refine cycles via the `orchestrate` skill |
+| **Quality Gates** | `scripts/quality.sh` + CI workflow enforce standards the agent cannot skip |
+| **50+ Skills** | Modular AI capabilities from frontend design to SQL optimization, loaded on demand |
+| **Self-Bootstrapping** | Missing a skill? The agent searches [prompts.chat](https://prompts.chat) and installs it at runtime |
+| **GitHub-Native** | Issues, PRs, labels, milestones, and workflows — managed by the agent, not despite it |
 
-## 🤖 Custom Agents
+## Quick Start
 
-Five specialized agents work together through the development lifecycle, **continuously self-improving** and **optimizing for efficiency**:
+```bash
+# 1. Use this template (or clone)
+gh repo create my-project --template Thedougler/agent-template
 
-### 1. Plan Agent (`plan-agent`)
-- Analyzes specs and user intent
-- Breaks down requirements into actionable tasks
-- Creates implementation plans with dependencies
-- Identifies risks and estimates effort
-- **Optimizes for rapid iteration and parallel execution**
-- **Uses context7 MCP server for latest best practices**
+# 2. Run — auto-bootstraps on first use
+./run.sh
 
-### 2. Implement Agent (`implement-agent`)
-- Writes code based on specs and tasks
-- Follows existing patterns and conventions
-- Creates/updates tests for new functionality
-- Ensures spec compliance
-- **Maximizes productivity with efficient code**
-- **Queries latest documentation via context7**
-
-### 3. Test Agent (`test-agent`)
-- Creates comprehensive test suites
-- Validates implementation against specs
-- Reports coverage and quality metrics
-- Identifies edge cases and missing tests
-- **Optimizes test suite runtime**
-- **Uses current testing frameworks via context7**
-
-### 4. Review Agent (`review-agent`)
-- Reviews code changes against specs
-- Evaluates code quality and maintainability
-- Checks for security vulnerabilities
-- Validates test coverage and documentation
-- **Provides efficient, prioritized feedback**
-- **Verifies against latest security standards via context7**
-
-### 5. Refactor Agent (`refactor-agent`)
-- Improves code quality while preserving functionality
-- Reduces duplication and complexity
-- Optimizes performance where needed
-- Maintains backward compatibility
-- **Continuously improves codebase efficiency**
-- **Applies modern patterns from context7**
-
-### Agent Efficiency Directives
-
-All agents are configured to:
-- ✅ **Maximize output and release frequency**
-- ✅ **Minimize token usage** while maintaining quality
-- ✅ **Continuously self-improve** their operations
-- ✅ **Always use latest documentation** via context7 MCP server
-- ✅ **Optimize for productivity** and team velocity
-
-## 📋 SPEC-Driven Development Workflow
-
-```
-User Intent/Issue → SPEC → Tasks → Implementation → Tests → Review → Merge → Release
-                      ↑                                ↓
-                      └────────── Iterative Feedback ─────────┘
+# 3. Open in VS Code with GitHub Copilot and start building
+code .
 ```
 
-### Step-by-Step Process
-
-1. **Create a Spec**
-   - Start with a GitHub issue using the Feature Spec or Bug Report template
-   - Document user intent, requirements, and acceptance criteria
-   - Store in `specs/` directory with format: `SPEC-###-description.md`
-
-2. **Plan Tasks**
-   - Plan-agent analyzes the spec
-   - Breaks down into discrete tasks
-   - Creates task files in `tasks/` directory
-   - Identifies dependencies and sequencing
-
-3. **Implement**
-   - Implement-agent writes code for each task
-   - Follows spec requirements exactly
-   - Updates task status as work progresses
-   - Links commits to task IDs
-
-4. **Test**
-   - Test-agent creates and runs tests
-   - Validates against spec acceptance criteria
-   - Reports coverage and identifies gaps
-   - All tests must pass before review
-
-5. **Review**
-   - Review-agent evaluates code quality
-   - Checks spec compliance
-   - Identifies security issues
-   - Provides constructive feedback
-
-6. **Refactor** (if needed)
-   - Refactor-agent improves code quality
-   - Maintains all functionality and tests
-   - Optimizes for maintainability
-   - Re-validates with test suite
-
-7. **Merge and Release**
-   - Create PR linking spec and tasks
-   - CI validates structure and tests
-   - Merge to main branch
-   - Track in release notes
-
-## 🚀 Getting Started
-
-**→ See [Quick Start Guide](docs/QUICK_START.md) for a 5-minute introduction**
-
-### Using This Template
-
-1. **Click "Use this template"** to create your repository
-2. **Clone your new repository** locally
-3. **Configure VS Code** with GitHub Copilot
-4. **Load custom agents** from `.github/agents/`
-
-### Creating Your First Spec
-
-1. **Open a new issue** using the "Feature Spec" template
-2. Fill in:
-   - User intent (what you want to accomplish)
-   - Requirements (functional and non-functional)
-   - Acceptance criteria (how you'll know it's done)
-3. Label with `spec` and `feature`
-4. The issue becomes your spec document
-
-### Working with Agents in VS Code
-
-1. **Open GitHub Copilot** in VS Code
-2. **Select an agent** based on your task:
-   - Use **plan-agent** to break down a spec into tasks
-   - Use **implement-agent** to write code for a task
-   - Use **test-agent** to create/run tests
-   - Use **review-agent** to review changes
-   - Use **refactor-agent** to improve code quality
-
-3. **Reference specs and tasks** in your prompts:
-   ```
-   @plan-agent Create tasks for SPEC-001
-   @implement-agent Implement TASK-001-1
-   @test-agent Test the implementation in SPEC-001
-   @review-agent Review changes for spec compliance
-   ```
-
-## 📁 Repository Structure
+## Repository Structure
 
 ```
-.
 ├── .github/
-│   ├── agents/              # Custom agent configurations
-│   │   ├── plan-agent.agent.md       # Markdown format (latest)
-│   │   ├── implement-agent.agent.md
-│   │   ├── test-agent.agent.md
-│   │   ├── review-agent.agent.md
-│   │   ├── refactor-agent.agent.md
-│   │   └── *.json                    # JSON format (legacy)
-│   ├── skills/              # Agent Skills for auto-discovery
-│   │   ├── SKILL_TEMPLATE.md
-│   │   └── spec-driven-development/
-│   │       └── SKILL.md
-│   ├── workflows/           # CI/CD pipelines
-│   │   ├── ci.yml
-│   │   ├── spec-validation.yml
-│   │   └── task-tracking.yml
-│   ├── ISSUE_TEMPLATE/      # Issue templates for specs
-│   │   ├── feature-spec.yml
-│   │   ├── bug-report.yml
-│   │   └── task.yml
-│   └── PULL_REQUEST_TEMPLATE.md
-├── .vscode/
-│   └── mcp.json             # MCP server configuration
-├── specs/                   # Specification documents
-│   ├── README.md
-│   └── SPEC_TEMPLATE.md
-├── tasks/                   # Task definitions
-│   ├── README.md
-│   └── TASK_TEMPLATE.md
-├── docs/                    # Documentation
-│   ├── README.md            # Documentation index
-│   ├── QUICK_START.md       # 5-minute guide
-│   ├── AGENT_WORKFLOW.md    # Agent details
-│   ├── SKILLS.md            # Agent Skills guide
-│   ├── MCP_SERVERS.md       # MCP servers guide
-│   └── ARCHITECTURE.md      # System architecture
-├── CONTRIBUTING.md          # Contribution guidelines
-└── README.md               # This file
+│   ├── copilot-instructions.md   # Agent identity, protocol, conventions
+│   ├── agents/                   # 3 specialized agents
+│   ├── skills/                   # 50+ reusable AI capability modules
+│   ├── workflows/                # CI, label sync, auto-label, releases
+│   └── ISSUE_TEMPLATE/           # Bug, feature, task templates
+├── app/                          # Your application code
+├── data/                         # Data files
+├── docs/                         # Documentation
+├── prompts/                      # Custom prompts
+├── scripts/
+│   ├── setup.sh                  # Idempotent environment bootstrap
+│   ├── lint.sh                   # Check-only linting
+│   ├── fix.sh                    # Auto-fix formatting
+│   └── quality.sh                # Full quality suite (lint + tests)
+├── specs/                        # Specification documents
+├── tasks/                        # Implementation task breakdowns
+├── tests/                        # Test suites
+├── run.sh                        # Main entry point
+├── SPEC.md                       # Project-level specification
+└── CONTRIBUTING.md               # SPEC-driven workflow guide
 ```
 
-## 🎓 Advanced Features
+## Agents
 
-### Agent Skills
+Specialized agents reduce token usage by handling focused tasks via `runSubagent`:
 
-**Automatic capability enhancement** - Copilot automatically discovers and applies skills based on context:
+| Agent | Purpose | When to Use |
+|-------|---------|-------------|
+| **@Context7-Expert** | Fetches live library docs via Context7 MCP | Any library/framework question — never relies on training data |
+| **@Universal Janitor** | Eliminates tech debt, dead code, unused deps | Cleanup and simplification passes |
+| **@Playwright Tester** | Explores sites then generates Playwright tests | E2E and integration testing |
 
-- **Location**: `.github/skills/`
-- **Format**: `SKILL.md` with YAML frontmatter
-- **Discovery**: Automatic based on task context
-- **Usage**: Applied transparently when relevant
+## Key Skills
 
-Example: The `spec-driven-development` skill teaches Copilot SPEC-driven methodology automatically.
+The template ships with 50+ skills. Here are the ones that power the core agentic loop:
 
-See [SKILLS.md](docs/SKILLS.md) for complete guide.
+| Skill | What It Does |
+|-------|-------------|
+| `orchestrate` | Manages the plan → code → review ralph loop |
+| `agentic-eval` | Self-critique, reflection loops, rubric-based scoring |
+| `spec-driven-development` | SPEC methodology: plan → implement → test → review |
+| `git-commit` | Conventional Commits with intelligent staging |
+| `refactor` | Surgical code improvement without behavior changes |
+| `skill-lookup` | Discovers and installs new skills from prompts.chat |
+| `feature-design-assistant` | Collaborative feature design through dialogue |
+| `task-coordination-strategies` | Multi-agent task decomposition and dependency management |
 
-### MCP Servers
+## Scripts
 
-**Extend Copilot with external tools and data**:
+All scripts are idempotent, use `set -euo pipefail`, and auto-detect the project stack:
 
-#### Pre-configured Servers
+| Script | Purpose |
+|--------|---------|
+| `./run.sh` | Entry point — auto-runs `setup.sh` on first use |
+| `scripts/setup.sh` | Bootstrap: `.env`, pre-commit, npm/pip/uv deps |
+| `scripts/lint.sh` | Check-only: pre-commit hooks + markdownlint |
+| `scripts/fix.sh` | Auto-fix: formatting and style issues |
+| `scripts/quality.sh` | Full gate: lint + tests — runs before every commit |
 
-1. **context7** - Latest documentation for technologies
-   - Always provides current API docs
-   - Returns up-to-date best practices
-   - Ensures agents use modern patterns
+## The Agentic Loop
 
-2. **filesystem** - Local file access
-   - Read/write repository files
-   - Search codebase
-   - Monitor changes
+Every task the agent performs follows the **Mandatory Completion Protocol**:
 
-3. **github** - GitHub API integration
-   - Create/manage issues and PRs
-   - Access workflows
-   - Search repositories
+```
+Step 0 — Do the work
+         Complete the user's actual request.
 
-#### Configuration
+Step 1 — Self-reflect & improve
+         Did scripts break? Fix them.
+         Were prompts too vague? Expand them.
+         Were instructions too verbose? Condense them.
+         Missing tests? Add them.
 
-Located in `.vscode/mcp.json` - customize or add servers as needed.
-
-See [MCP_SERVERS.md](docs/MCP_SERVERS.md) for complete guide.
-
-### Custom Agent Format
-
-Agents now use markdown format with YAML frontmatter:
-
-```markdown
----
-name: agent-name
-description: What the agent does
-tools: [filesystem, code_search, mcp]
-infer: true
-metadata:
-  mcp-servers: [context7]
----
-
-# Agent Instructions
-
-Detailed guidance for the agent...
+Step 2 — Commit clean
+         Run quality.sh → fix issues → commit with Conventional Commits.
 ```
 
-Benefits:
-- More expressive instructions
-- Integrated MCP server configuration
-- Efficiency and self-improvement directives
-- Backward compatible with JSON format
+This creates a **continuous improvement flywheel**: every task the agent completes also improves the infrastructure for the next task.
 
-## 🔄 Continuous Integration
+## SPEC-Driven Development
 
-Automated workflows validate:
+The methodology that keeps the agent aligned with intent:
 
-- **Spec format and completeness** - All specs have required sections
-- **Task linking** - PRs link to specs and tasks
-- **Code quality** - Linting and formatting
-- **Repository structure** - Required directories and files exist
-- **Agent configurations** - JSON syntax and required fields
+1. **Spec** — Define what to build in `specs/SPEC-###-description.md`
+2. **Plan** — Break it into tasks in `tasks/TASK-###-#-description.md`
+3. **Implement** — One task at a time, atomic commits
+4. **Test** — Validate against acceptance criteria
+5. **Review** — Spec compliance + code quality
+6. **PR** — Link spec, list tasks, include test results
 
-## 📚 Documentation
+Templates for both specs and tasks are included. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
 
-- [Specs README](specs/README.md) - How to create and manage specs
-- [Tasks README](tasks/README.md) - How to create and track tasks
-- [Agent Skills Guide](docs/SKILLS.md) - Using and creating agent skills
-- [MCP Servers Guide](docs/MCP_SERVERS.md) - Extending Copilot with MCP
-- [Agent Workflow](docs/AGENT_WORKFLOW.md) - How agents work together
-- [Quick Start](docs/QUICK_START.md) - 5-minute getting started guide
-- [Architecture](docs/ARCHITECTURE.md) - System design and components
-- [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
+## Customization
 
-## 🎯 Key Principles
+This template is **stack-agnostic**. When you add your first `package.json` or `pyproject.toml`, the scripts auto-detect it and install dependencies. Pre-commit hooks for language-specific linters (ruff, shellcheck, markdownlint) are pre-configured but commented out — uncomment what you need in `.pre-commit-config.yaml`.
 
-1. **Spec-First Development**
-   - Every change starts with a spec
-   - Specs capture user intent and requirements
-   - Implementation follows the spec exactly
+The agent will also self-adapt: if it encounters a missing skill, it searches for and installs one. If a script breaks, it fixes it. If an instruction is too vague, it expands it.
 
-2. **Task-Based Workflow**
-   - Specs break down into discrete tasks
-   - Each task has clear acceptance criteria
-   - Tasks track progress to completion
+## License
 
-3. **Agent Collaboration**
-   - Agents work autonomously within their roles
-   - Iterative feedback loops improve quality
-   - Human oversight at key decision points
-   - **Agents continuously optimize their own performance**
-
-4. **Traceability**
-   - Issues → Specs → Tasks → Commits → PRs → Releases
-   - Every change links back to user intent
-   - Full audit trail of decisions
-
-5. **Continuous Validation**
-   - Tests validate against spec requirements
-   - Reviews ensure quality and compliance
-   - CI enforces standards automatically
-
-6. **Efficiency & Self-Improvement**
-   - **Maximize output and release frequency**
-   - **Minimize token usage** while maintaining quality
-   - **Always use latest documentation** via context7
-   - **Continuous improvement** in all processes
-
-## 🤝 Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
-- Creating specs and tasks
-- Working with agents
-- Code review process
-- Release management
-
-## 📄 License
-
-This template is available under the MIT License. See [LICENSE](LICENSE) for details.
-
-## 🙋 Support
-
-- **Documentation**: Check the `specs/` and `tasks/` README files
-- **Issues**: Use the issue templates to report problems or request features
-- **Discussions**: Share ideas and ask questions in GitHub Discussions
-
----
-
-**Built for SPEC-driven development with GitHub Copilot custom agents**
+[MIT](LICENSE)
