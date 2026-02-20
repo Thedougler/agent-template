@@ -1,8 +1,0 @@
-blank_issues_enabled: true
-contact_links:
-  - name: Documentation
-    url: https://github.com/Thedougler/agent-template/blob/main/README.md
-    about: Read the documentation for SPEC-driven development
-  - name: Discussions
-    url: https://github.com/Thedougler/agent-template/discussions
-    about: Ask questions and discuss ideas with the community

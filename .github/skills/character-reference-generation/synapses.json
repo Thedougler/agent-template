@@ -1,0 +1,58 @@
+{
+  "$schema": "../SYNAPSE-SCHEMA.json",
+  "skillId": "character-reference-generation",
+  "lastUpdated": "2026-02-16",
+  "inheritance": "inheritable",
+  "connections": [
+    {
+      "target": ".github/skills/ai-image-generation/SKILL.md",
+      "type": "extends",
+      "strength": 0.95,
+      "reason": "Character references use AI image generation with specialized prompting patterns"
+    },
+    {
+      "target": ".github/skills/creative-writing/SKILL.md",
+      "type": "integrates",
+      "strength": 0.8,
+      "reason": "Character consistency across visual and textual mediums requires unified character understanding"
+    },
+    {
+      "target": ".github/skills/bootstrap-learning/SKILL.md",
+      "type": "extends",
+      "strength": 0.75,
+      "reason": "Used bootstrap learning to discover Flux API behavior through empirical testing"
+    },
+    {
+      "target": ".github/instructions/ai-character-reference-generation.instructions.md",
+      "type": "implements",
+      "strength": 0.95,
+      "reason": "Procedural memory encoding for critical rules and patterns"
+    },
+    {
+      "target": ".github/prompts/ai-character-reference-generation.prompt.md",
+      "type": "activates",
+      "strength": 0.9,
+      "reason": "Interactive /character-reference command implements 7-phase workflow"
+    },
+    {
+      "target": ".github/skills/research-first-development/SKILL.md",
+      "type": "validates",
+      "strength": 0.8,
+      "reason": "API investigation before implementation exemplifies research-first approach"
+    }
+  ],
+  "triggers": [
+    "character reference",
+    "character consistency",
+    "visual character",
+    "character images",
+    "replicate flux",
+    "flux 1.1 pro",
+    "character variation",
+    "pose variety",
+    "image generation",
+    "visual consistency",
+    "book illustrations"
+  ],
+  "schemaVersion": "2.0.0"
+}
