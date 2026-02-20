@@ -45,21 +45,21 @@ The architecture is built on three pillars:
 
 **Agents** (`.github/agents/`) — Specialized agents that handle focused tasks to reduce token usage:
 
-| Agent | Purpose |
-| ----- | ------- |
-| @Context7-Expert | Live library docs via Context7 MCP |
+| Agent              | Purpose                             |
+| ------------------ | ----------------------------------- |
+| @Context7-Expert   | Live library docs via Context7 MCP  |
 | @Universal Janitor | Tech debt and dead code elimination |
-| @Playwright Tester | E2E test generation and execution |
+| @Playwright Tester | E2E test generation and execution   |
 
 **Scripts** (`scripts/`) — Idempotent shell scripts that auto-detect the project stack:
 
-| Script | Purpose |
-| ------ | ------- |
-| `./run.sh` | Entry point — auto-bootstraps on first use |
-| `scripts/setup.sh` | Environment bootstrap (deps, hooks, .env) |
-| `scripts/lint.sh` | Check-only linting |
-| `scripts/fix.sh` | Auto-fix formatting |
-| `scripts/quality.sh` | Full quality gate (lint + tests) |
+| Script               | Purpose                                    |
+| -------------------- | ------------------------------------------ |
+| `./run.sh`           | Entry point — auto-bootstraps on first use |
+| `scripts/setup.sh`   | Environment bootstrap (deps, hooks, .env)  |
+| `scripts/lint.sh`    | Check-only linting                         |
+| `scripts/fix.sh`     | Auto-fix formatting                        |
+| `scripts/quality.sh` | Full quality gate (lint + tests)           |
 
 ### The Agentic Loop
 

@@ -11,13 +11,13 @@ Use increments of 4: `gap-4`, `p-6`, `py-8`, `space-y-12`, `py-16`, `py-24`
 
 ## Responsive Breakpoints (Mobile-First)
 
-| Breakpoint | Min Width | Example |
-|------------|-----------|---------|
-| Base | 0px | `text-base` |
-| sm | 640px | `sm:text-lg` |
-| md | 768px | `md:grid-cols-2` |
-| lg | 1024px | `lg:px-8` |
-| xl | 1280px | `xl:max-w-7xl` |
+| Breakpoint | Min Width | Example          |
+| ---------- | --------- | ---------------- |
+| Base       | 0px       | `text-base`      |
+| sm         | 640px     | `sm:text-lg`     |
+| md         | 768px     | `md:grid-cols-2` |
+| lg         | 1024px    | `lg:px-8`        |
+| xl         | 1280px    | `xl:max-w-7xl`   |
 
 ## Essential Patterns
 
@@ -53,13 +53,13 @@ Use increments of 4: `gap-4`, `p-6`, `py-8`, `space-y-12`, `py-16`, `py-24`
 
 ### Swiss Colors
 
-| Color | Hex | Tailwind |
-|-------|-----|----------|
-| Canvas | `#F0F0E8` | `bg-[#F0F0E8]` |
-| Ink | `#000000` | `text-black` |
-| Hyper Blue | `#1D4ED8` | `bg-blue-700` |
+| Color        | Hex       | Tailwind         |
+| ------------ | --------- | ---------------- |
+| Canvas       | `#F0F0E8` | `bg-[#F0F0E8]`   |
+| Ink          | `#000000` | `text-black`     |
+| Hyper Blue   | `#1D4ED8` | `bg-blue-700`    |
 | Signal Green | `#15803D` | `text-green-700` |
-| Alert Red | `#DC2626` | `text-red-600` |
+| Alert Red    | `#DC2626` | `text-red-600`   |
 
 ### NEVER in Resume Matcher
 

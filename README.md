@@ -79,13 +79,13 @@ This creates a **continuous improvement flywheel**: every task also improves the
 
 ## Documentation
 
-| Document | Description |
-| -------- | ----------- |
-| **[Full Documentation](docs/README.md)** | Architecture, agents, scripts, and the agentic loop |
+| Document                                  | Description                                                    |
+| ----------------------------------------- | -------------------------------------------------------------- |
+| **[Full Documentation](docs/README.md)**  | Architecture, agents, scripts, and the agentic loop            |
 | **[Features & Skills](docs/Features.md)** | Complete breakdown of all 50+ skills, agents, and capabilities |
-| **[Contributing](CONTRIBUTING.md)** | SPEC-driven development workflow and contribution guide |
-| **[Project Spec](SPEC.md)** | Project-level specification and acceptance criteria |
-| **[Security](SECURITY.md)** | Security policy |
+| **[Contributing](CONTRIBUTING.md)**       | SPEC-driven development workflow and contribution guide        |
+| **[Project Spec](SPEC.md)**               | Project-level specification and acceptance criteria            |
+| **[Security](SECURITY.md)**               | Security policy                                                |
 
 ## Contributing
 
